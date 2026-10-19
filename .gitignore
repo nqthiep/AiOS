@@ -1,0 +1,4 @@
+.DS_Store
+__pycache__/
+# trạng thái phiên của công cụ agent, không thuộc dự án
+.omo/

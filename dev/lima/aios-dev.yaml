@@ -1,0 +1,18 @@
+# Máy ảo phát triển AiOS: Fedora 44 aarch64 trên Lima (vz), dùng để chạy spike cần Linux thật.
+# Tạo:   limactl start --name=aios-dev dev/lima/aios-dev.yaml
+# Xóa:   limactl delete aios-dev
+minimumLimaVersion: 2.0.0
+
+base:
+- template:_images/fedora-44   # ảnh Fedora Cloud 44 có kiểm sha256 trong template của Lima
+
+vmType: vz
+cpus: 4
+memory: "8GiB"
+disk: "20GiB"
+
+# Chỉ chia sẻ thư mục dự án; không chia sẻ home của Mac (mặc định của Lima là chia sẻ "~").
+mounts:
+- location: "/Users/quangthiep/Projects/AiOS"
+  mountPoint: "/Users/quangthiep/Projects/AiOS"
+  writable: true
