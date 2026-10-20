@@ -10,3 +10,17 @@ workspace = true
 
 [dependencies]
 aios-types.workspace = true
+anyhow.workspace = true
+base64 = "0.23"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+jsonschema = { version = "0.59", default-features = false }
+rand_core = { version = "0.6", features = ["std"] }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+toml = "1"
+tracing.workspace = true
+
+[dev-dependencies]
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+tempfile = "3"
