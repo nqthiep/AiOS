@@ -72,6 +72,7 @@ Ba nguyên tắc chi phối mọi quyết định:
 | [overview.md](overview.md) | AiOS là gì, đọc gì trước, thuật ngữ |
 | [decisions.md](decisions.md) | Quyết định nào đã chốt, đang đề xuất, đã bị thay |
 | [roadmap.md](roadmap.md) | MVP gồm gì, các mốc M0–M5 + R, cổng nghiệm thu, spike |
+| [m0/](m0/README.md) | Thiết kế chi tiết và nghiệm thu từng task của M0 |
 | [design.md](design.md) | Thiết kế chi tiết từng tầng, yêu cầu PHẢI/KHÔNG ĐƯỢC |
 | [integration.md](integration.md) | Cách ghép từng dự án mã nguồn mở, cổng và socket, sandbox |
 | [tech-stack.md](tech-stack.md) | Chọn thư viện và công cụ cụ thể, kèm nguồn |

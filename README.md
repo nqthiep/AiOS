@@ -10,6 +10,7 @@ Hệ điều hành tự hành dựa trên Linux, tích hợp mô hình ngôn ng�
 | --- | --- |
 | [docs/design.md](docs/design.md) | Thiết kế chi tiết: kiến trúc, tích hợp kernel, 3 cấp phản hồi, Model Gateway, bộ nhớ và tự học, UI sinh, giọng nói, công cụ, phần cứng, bảo mật, vận hành, lộ trình, rủi ro |
 | [docs/overview.md](docs/overview.md) | Tổng quan một trang, bản đồ tài liệu, thuật ngữ |
+| [docs/m0/](docs/m0/README.md) | Thiết kế chi tiết từng task của mốc M0 (quy ước chung, giao diện giữa các crate, nghiệm thu) |
 | [docs/roadmap.md](docs/roadmap.md) | Phạm vi MVP (M1), các mốc M0–M5 + R, cổng nghiệm thu, ngân sách độ phức tạp |
 | [docs/integration.md](docs/integration.md) | Kiến trúc tích hợp các thành phần mã nguồn mở (linux, WeKnora, Hindsight, opencode, rea, ArtCraft, OpenShell, gpui-kit, browser-use, open-code-review, Harness², bộ công cụ an ninh; deepseek-harness và hermes-agent làm mẫu tham khảo) |
 | [docs/tech-stack.md](docs/tech-stack.md) | Nghiên cứu tech stack cho từng tầng, kèm nguồn tham khảo và các spike kiểm chứng |
