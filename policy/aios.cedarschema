@@ -1,0 +1,24 @@
+// AiOS Policy Engine schema (tech-stack.md §4, design.md §18.3). Lõi tin cậy: chỉ đổi qua cập nhật ảnh.
+entity Agent = {
+  uid: Long,
+  is_admin: Bool,
+};
+
+entity Tool = {
+  name: String,
+  risk: String,              // "low" | "medium" | "high" — mức hiệu lực từ registry đã ký
+  reversible: Bool,
+  always_confirm: Bool,
+  system_scope: Bool,
+  writes_trusted_core: Bool,
+};
+
+action invoke appliesTo {
+  principal: [Agent],
+  resource: [Tool],
+  context: {
+    autonomy: Long,          // = min(mức người dùng đặt, trần của kênh), do Broker tính
+    channel: String,         // "local" | "voice" | "remote" | "schedule"
+    tainted: Bool,           // taint của session
+  },
+};

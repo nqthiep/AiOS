@@ -49,12 +49,12 @@ Mỗi vector ghi: `claims`, `token` mong đợi, `pending` (bản Broker giữ),
 ## Kiểm thử và nghiệm thu
 
 ```bash
-python3 -I testdata/confirm-vectors/gen.py --check   # sinh lại, so khớp file đã commit
-cargo test -p aios-policy --test invariants -- --ignored --list
-cargo test -p aios-confirm --test vectors -- --ignored --list
+uv run --no-project --with cryptography python -I testdata/confirm-vectors/gen.py --check
+cargo test -p aios-policy --features spec-tests   # chỉ chạy được sau khi task policy xong
+cargo test -p aios-confirm --features spec-tests  # chỉ chạy được sau khi task confirm xong
 ```
 
-Test được liệt kê (chưa chạy được vì chưa có mã); sau khi policy và confirm xong, bỏ `#[ignore]`.
+Hai test đặc tả nằm sau feature `spec-tests` để workspace vẫn biên dịch khi chưa có mã; sau khi policy và confirm xong, leader thêm hai lệnh này vào `make check`.
 
 ## Ngoài phạm vi
 

@@ -10,3 +10,12 @@ workspace = true
 
 [dependencies]
 aios-types.workspace = true
+
+[features]
+# Bật test đặc tả do leader viết (tests/vectors.rs)
+spec-tests = []
+
+[dev-dependencies]
+serde_json.workspace = true
+base64 = "0.22"
+ed25519-dalek = "2"

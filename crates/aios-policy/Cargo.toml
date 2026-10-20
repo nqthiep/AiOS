@@ -10,3 +10,10 @@ workspace = true
 
 [dependencies]
 aios-types.workspace = true
+
+[features]
+# Bật test đặc tả do leader viết (tests/invariants.rs)
+spec-tests = []
+
+[dev-dependencies]
+serde_json.workspace = true

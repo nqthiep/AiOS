@@ -49,6 +49,7 @@ pub fn pending_for(principal: &Principal, task_step: &str, steps: Vec<(String, V
 pub fn sign(claims: &ConfirmClaims, key: &SigningKey) -> String;                      // phía trusted UI
 pub struct Verifier { key: VerifyingKey, nonces: NonceStore }
 impl Verifier {
+    pub fn new(key: VerifyingKey) -> Self;                             // NonceStore trong bộ nhớ
     pub fn verify_and_consume(&self, token: &str, pending: &PendingConfirm, now_unix: u64) -> Result<VerifiedToken, ConfirmError>;
     pub fn consume_step(&self, vt: &mut VerifiedToken, tool: &str, args: &Value) -> Result<(), ConfirmError>; // theo lô: đúng phần tử kế tiếp
 }
@@ -56,7 +57,9 @@ pub enum ConfirmError { BadFormat, BadSignature, Expired, NonceReused, RequestMi
                         UidMismatch, ToolMismatch, ArgsMismatch, StepOutOfOrder, HighInBatch, PolicyVersionMismatch, TooLong }
 ```
 
-- `pending_for` trả `HighInBatch` nếu `steps.len() > 1` và có bước `high` (REQ-D-9.5-03).
+- `pending_for` trả `HighInBatch` nếu `steps.len() > 1` và có bước `high` (REQ-D-9.5-03). `verify_and_consume` cũng trả `HighInBatch` khi `pending` có hơn 1 bước và có bước `high`.
+- Thứ tự kiểm trong `verify_and_consume`: độ dài (`TooLong`) → định dạng (`BadFormat`) → chữ ký (`BadSignature`) → `HighInBatch` → `request_id` → `principal` → `uid` → `policy_version` → hạn (`Expired`) → từng bước (`ToolMismatch`, `ArgsMismatch`) → nonce (`NonceReused`, tiêu thụ ở bước cuối).
+- `ConfirmClaims` derive `Serialize`, `Deserialize`; khóa trong JSON đúng tên trường.
 - Hạn: một bước tối đa 60 s kể từ `created_unix`; theo lô tối đa 3.600 s (M0). Vượt → `Expired`.
 - `NonceStore`: trong bộ nhớ, giữ nonce đến khi hết hạn, dọn định kỳ; tiêu thụ nonce ngay khi `verify_and_consume` thành công lần đầu.
 - So sánh hash dùng so sánh thời gian hằng (crate `subtle`).
@@ -70,7 +73,7 @@ Khóa dev thuộc user hệ thống riêng `aios-trusted` (quyền `0600`), đ�
 
 ```bash
 cargo test -p aios-confirm
-cargo test -p aios-confirm --test vectors      # bỏ #[ignore]; mọi vector cho đúng kết quả
+cargo test -p aios-confirm --features spec-tests  # test của ld-secspec; mọi vector cho đúng kết quả
 cargo clippy -p aios-confirm -- -D warnings
 ```
 

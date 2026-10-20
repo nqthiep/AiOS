@@ -30,6 +30,7 @@ pub struct PolicyInput<'a> {
 impl PolicyEngine {
     pub fn load(dir: &Path) -> Result<Self, PolicyError>;   // đọc auto.cedar + forbid.cedar thành tập auto; confirmable.cedar + forbid.cedar thành tập confirmable; validate theo schema
     pub fn evaluate(&self, input: &PolicyInput) -> Verdict;
+    pub fn decide_sets(&self, input: &PolicyInput) -> SetDecisions;   // { auto: bool, confirmable: bool }: Allow của từng tập, dùng cho test bất biến 4
     pub fn policy_version(&self) -> String;                  // SHA-256 hex của nội dung 4 file, dùng trong token (design §9.5)
 }
 pub fn effective_autonomy(user: u8, channel: Channel, tool_writes: bool) -> u8;
@@ -47,7 +48,7 @@ pub fn confirm_level(tool: &ToolSpec, tainted: bool) -> ConfirmLevel;
 
 ```bash
 cargo test -p aios-policy                       # test đơn vị của worker
-cargo test -p aios-policy --test invariants     # test của ld-secspec, bỏ #[ignore] khi bắt đầu task
+cargo test -p aios-policy --features spec-tests  # test của ld-secspec (tests/invariants.rs)
 cargo clippy -p aios-policy -- -D warnings
 ```
 

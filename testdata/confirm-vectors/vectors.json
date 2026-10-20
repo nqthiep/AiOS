@@ -1,0 +1,842 @@
+{
+ "comment": "Sinh bởi gen.py; KHÔNG sửa tay. Khóa Ed25519 seed = bytes 0..31.",
+ "public_key_b64": "A6EHv/POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg=",
+ "vectors": [
+  {
+   "name": "single-ok",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "lH8YdQb3YpyByBh5ossiVg",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6ImxIOFlkUWIzWXB5QnlCaDVvc3NpVmciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.zEcQZ-7ZaSNMIebqGlxynVqozyBJa1AOiGg4k6XLAqMGunRumAGKtBBrbAUCJzIIQzWPBAZd0vdn8wTxIPbbDg",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "ok"
+  },
+  {
+   "name": "batch-ok",
+   "kind": "batch",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.search",
+      "args_hash": "f70611217aea6ccb1796df02e68717d0426dec855f379d3a18c27d6a0dc49e77"
+     },
+     {
+      "tool": "fs.write_note",
+      "args_hash": "9d89cd002640a215e42c5df1a9eeb7826a906994cc4a4945df3b624d98fbb6d6"
+     },
+     {
+      "tool": "fs.undo_note",
+      "args_hash": "e2387c01ecc24cd434c1720d1833a423c3080b4feb155b5627b369b5e010f6dc"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "S7JO_JZBr8Xe0cp36rtuLw",
+    "exp_unix": 1800003600
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAzNjAwLCJub25jZSI6IlM3Sk9fSlpCcjhYZTBjcDM2cnR1THciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiZjcwNjExMjE3YWVhNmNjYjE3OTZkZjAyZTY4NzE3ZDA0MjZkZWM4NTVmMzc5ZDNhMThjMjdkNmEwZGM0OWU3NyIsInRvb2wiOiJmcy5zZWFyY2gifSx7ImFyZ3NfaGFzaCI6IjlkODljZDAwMjY0MGEyMTVlNDJjNWRmMWE5ZWViNzgyNmE5MDY5OTRjYzRhNDk0NWRmM2I2MjRkOThmYmI2ZDYiLCJ0b29sIjoiZnMud3JpdGVfbm90ZSJ9LHsiYXJnc19oYXNoIjoiZTIzODdjMDFlY2MyNGNkNDM0YzE3MjBkMTgzM2E0MjNjMzA4MGI0ZmViMTU1YjU2MjdiMzY5YjVlMDEwZjZkYyIsInRvb2wiOiJmcy51bmRvX25vdGUifV0sInRhc2tfc3RlcCI6InQtMTowIiwidWlkIjoxMDAwLCJ2IjoxfQ.YujbIeFiOw4yZbbWvmzpZbthMjndO9PdMMsN5-mNb7S2X824RPOXZZNzS0iQ4McvqSZVIn0Pt9IZQlUX9MAGCw",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.search",
+      "args": {
+       "q": "hợp đồng"
+      },
+      "risk": "low"
+     },
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "tom-tat",
+       "text": "ok"
+      },
+      "risk": "medium"
+     },
+     {
+      "tool": "fs.undo_note",
+      "args": {
+       "undo_id": "u1"
+      },
+      "risk": "low"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": [
+    {
+     "tool": "fs.search",
+     "args": {
+      "q": "hợp đồng"
+     }
+    },
+    {
+     "tool": "fs.write_note",
+     "args": {
+      "name": "tom-tat",
+      "text": "ok"
+     }
+    },
+    {
+     "tool": "fs.undo_note",
+     "args": {
+      "undo_id": "u1"
+     }
+    }
+   ],
+   "expect": "ok"
+  },
+  {
+   "name": "nfd-args-ok",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "dfedf12991ebff1a9fa191427d641c12bb92c6ed7170e077c62be9ad39428fdf"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "33NT3hxFTuPORu3h9hoKiQ",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IjMzTlQzaHhGVHVQT1J1M2g5aG9LaVEiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiZGZlZGYxMjk5MWViZmYxYTlmYTE5MTQyN2Q2NDFjMTJiYjkyYzZlZDcxNzBlMDc3YzYyYmU5YWQzOTQyOGZkZiIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.iVQ7nW_trSrYswAsZpouWlILT1z_WkPYjIooaXdtHywftjlbqpFaavMhvxmhe4mPCGE4_KFtScJdxmZgjn2iBw",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ghi-chú",
+       "text": "Tiếng Việt"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "ok"
+  },
+  {
+   "name": "nested-args-ok",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "sys.info",
+      "args_hash": "bec8a2c6536c2175707ffa6c5d0395a87f66304a7e0223c4725321ed7d8c8cb2"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "IzVi3hoCiLE5xPpAt9GJ-A",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6Ikl6VmkzaG9DaUxFNXhQcEF0OUdKLUEiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiYmVjOGEyYzY1MzZjMjE3NTcwN2ZmYTZjNWQwMzk1YTg3ZjY2MzA0YTdlMDIyM2M0NzI1MzIxZWQ3ZDhjOGNiMiIsInRvb2wiOiJzeXMuaW5mbyJ9XSwidGFza19zdGVwIjoidC0xOjAiLCJ1aWQiOjEwMDAsInYiOjF9.uT_Qv3ikCTwxiQb41uDJHSApiWa3kyhVTrhC9i67DOjtzTOurVPnkP05QFPvDbUhyHZc2-pQK6kWpN-exFI7Bw",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "sys.info",
+      "args": {
+       "fields": [
+        "ram",
+        "cpu"
+       ],
+       "depth": 2,
+       "opts": {
+        "z": true,
+        "a": null
+       }
+      },
+      "risk": "low"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "ok"
+  },
+  {
+   "name": "high-dry-run-ok",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "pkg.app_install_system",
+      "args_hash": "cf1ac3756ad89db7c035e2e1df93e1641d020c0219446a26f844ebd986f1941f"
+     }
+    ],
+    "dry_run_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "t1XLJIw8Sn2U-DW0QhgJMw",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOiJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiIiwiZXhwX3VuaXgiOjE4MDAwMDAwNjAsIm5vbmNlIjoidDFYTEpJdzhTbjJVLURXMFFoZ0pNdyIsInBvbGljeV92ZXJzaW9uIjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsInByaW5jaXBhbCI6InVpZDoxMDAwL3Nlc3Npb246MDE5MjAwMDAtMDAwMC03MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwicmVxdWVzdF9pZCI6IjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDBhYSIsInN0ZXBzIjpbeyJhcmdzX2hhc2giOiJjZjFhYzM3NTZhZDg5ZGI3YzAzNWUyZTFkZjkzZTE2NDFkMDIwYzAyMTk0NDZhMjZmODQ0ZWJkOTg2ZjE5NDFmIiwidG9vbCI6InBrZy5hcHBfaW5zdGFsbF9zeXN0ZW0ifV0sInRhc2tfc3RlcCI6InQtMTowIiwidWlkIjoxMDAwLCJ2IjoxfQ.V8ANTS_9MPaGfb4_6lKXFxuC515xPedfZ1EEaagI1HE143D-RnZiPAHFP4lCnLejY_QrwPYGHCiAYFBFoZy6CA",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "pkg.app_install_system",
+      "args": {
+       "app_id": "org.videolan.VLC"
+      },
+      "risk": "high"
+     }
+    ],
+    "dry_run_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "ok"
+  },
+  {
+   "name": "bad-signature",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "ZXdp7UhZN14Or5ldGLYa_g",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IlpYZHA3VWhaTjE0T3I1bGRHTFlhX2ciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.1rP6su74WdiW2hhZZwp9GW_aP8y7JiG4Fj4PoREr-0USdvrDb9jPiv2qjn0e14ge1btT7fqIgydZXEcr7cNnAg",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "BadSignature"
+  },
+  {
+   "name": "expired",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "-mTqHoLhIG-CirKgKRfH6Q",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6Ii1tVHFIb0xoSUctQ2lyS2dLUmZINlEiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.iB7OVdC8-5sLf04s5OFh-8zuXIWce81t6bRMnyTfhO3QK_H92gbJdCrMeCHP3qCRC8xVEaUotlF7Nt8l9T5SCQ",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000061,
+   "consume": null,
+   "expect": "Expired"
+  },
+  {
+   "name": "nonce-reused",
+   "kind": "replay",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "rCA8mEO1vYyIPgcDn_goIA",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6InJDQThtRU8xdll5SVBnY0RuX2dvSUEiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.gCK_LoRewskqG3R3f8c8zwBUE0dx5Wxta5VstHjiSxtSmtm8gJKg1XetVmg_QZu8xadzFhEIgCFatMBunFbLAA",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "NonceReused"
+  },
+  {
+   "name": "args-mismatch",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "AcvIuonXY8LIrEv21-mmxA",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IkFjdkl1b25YWThMSXJFdjIxLW1teEEiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.FTNENoyMswlrm6KAiZp9ANrJuMkDo6GZUNElIGKM9dgzRct-iSPeHXQK4uIaZppgUeKGv5jiFpARElagvUUtDA",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 10 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "ArgsMismatch"
+  },
+  {
+   "name": "tool-mismatch",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "5E0FouQ2iWghrCCQ8cMW9A",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IjVFMEZvdVEyaVdnaHJDQ1E4Y01XOUEiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.W-o7S0SoxhwZuXYtxqsdpiuokOxquqnJ15Cw1fKBq18mosgtDJTSWDUjsNswhybh276HxR0JoGaGlPzyaEjxDg",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.undo_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "ToolMismatch"
+  },
+  {
+   "name": "principal-mismatch",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "27TmkskyeAf9LSc3ElsTwg",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IjI3VG1rc2t5ZUFmOUxTYzNFbHNUd2ciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.vXLjK8PyLTNFy-7wfrP-c022EHQueZqbrswbNG8BpXlAahghTxR-YLaKeLbQlxdIr9ZbmLNqGFo2bnn5-T62Dw",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000002",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "PrincipalMismatch"
+  },
+  {
+   "name": "uid-mismatch",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "F7eIpw7sy9wvyy0tPbIWwA",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IkY3ZUlwdzdzeTl3dnl5MHRQYklXd0EiLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.AJg3xghTgtdBU2W5DoLHJHsjz-awODfSI2xSIgfI98mLp371gFSk4_DIi0isin36X-0gvMN90tmcAxcRK4IDAw",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1001,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "UidMismatch"
+  },
+  {
+   "name": "high-in-batch",
+   "kind": "batch",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.search",
+      "args_hash": "a69fbbcf7209c6f659a75067c9fa03037c2ae23f55a6f854d5994209129bbbf6"
+     },
+     {
+      "tool": "pkg.app_install_system",
+      "args_hash": "fd6881154c9975e708851397a2fefc14341bd22a8ef47885563859520c168259"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "YdTfVQJk2vSbgSCZM2er-g",
+    "exp_unix": 1800003600
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAzNjAwLCJub25jZSI6IllkVGZWUUprMnZTYmdTQ1pNMmVyLWciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiYTY5ZmJiY2Y3MjA5YzZmNjU5YTc1MDY3YzlmYTAzMDM3YzJhZTIzZjU1YTZmODU0ZDU5OTQyMDkxMjliYmJmNiIsInRvb2wiOiJmcy5zZWFyY2gifSx7ImFyZ3NfaGFzaCI6ImZkNjg4MTE1NGM5OTc1ZTcwODg1MTM5N2EyZmVmYzE0MzQxYmQyMmE4ZWY0Nzg4NTU2Mzg1OTUyMGMxNjgyNTkiLCJ0b29sIjoicGtnLmFwcF9pbnN0YWxsX3N5c3RlbSJ9XSwidGFza19zdGVwIjoidC0xOjAiLCJ1aWQiOjEwMDAsInYiOjF9.OabUMyYOEyDScmfI1DUlxfFRgur-VqO162D_VY00hbtrEp6--gp-3pvDTsjWZqBlOHmgHxlZN6NK4d6Zf1dzBA",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.search",
+      "args": {
+       "q": "x"
+      },
+      "risk": "low"
+     },
+     {
+      "tool": "pkg.app_install_system",
+      "args": {
+       "app_id": "org.x.Y"
+      },
+      "risk": "high"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "HighInBatch"
+  },
+  {
+   "name": "step-out-of-order",
+   "kind": "batch",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.search",
+      "args_hash": "f70611217aea6ccb1796df02e68717d0426dec855f379d3a18c27d6a0dc49e77"
+     },
+     {
+      "tool": "fs.write_note",
+      "args_hash": "9d89cd002640a215e42c5df1a9eeb7826a906994cc4a4945df3b624d98fbb6d6"
+     },
+     {
+      "tool": "fs.undo_note",
+      "args_hash": "e2387c01ecc24cd434c1720d1833a423c3080b4feb155b5627b369b5e010f6dc"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "Put-luWc5A-csaCJ2roHnw",
+    "exp_unix": 1800003600
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAzNjAwLCJub25jZSI6IlB1dC1sdVdjNUEtY3NhQ0oycm9IbnciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiZjcwNjExMjE3YWVhNmNjYjE3OTZkZjAyZTY4NzE3ZDA0MjZkZWM4NTVmMzc5ZDNhMThjMjdkNmEwZGM0OWU3NyIsInRvb2wiOiJmcy5zZWFyY2gifSx7ImFyZ3NfaGFzaCI6IjlkODljZDAwMjY0MGEyMTVlNDJjNWRmMWE5ZWViNzgyNmE5MDY5OTRjYzRhNDk0NWRmM2I2MjRkOThmYmI2ZDYiLCJ0b29sIjoiZnMud3JpdGVfbm90ZSJ9LHsiYXJnc19oYXNoIjoiZTIzODdjMDFlY2MyNGNkNDM0YzE3MjBkMTgzM2E0MjNjMzA4MGI0ZmViMTU1YjU2MjdiMzY5YjVlMDEwZjZkYyIsInRvb2wiOiJmcy51bmRvX25vdGUifV0sInRhc2tfc3RlcCI6InQtMTowIiwidWlkIjoxMDAwLCJ2IjoxfQ.CJjTN_d6OippihYeB17T3RK1Yr1J6ruDroZINAIG0nwy4Pt3e96E2T52V9VH92OxSL7eSZ7jg8NcKWEthZrZCg",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.search",
+      "args": {
+       "q": "hợp đồng"
+      },
+      "risk": "low"
+     },
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "tom-tat",
+       "text": "ok"
+      },
+      "risk": "medium"
+     },
+     {
+      "tool": "fs.undo_note",
+      "args": {
+       "undo_id": "u1"
+      },
+      "risk": "low"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": [
+    {
+     "tool": "fs.write_note",
+     "args": {
+      "name": "tom-tat",
+      "text": "ok"
+     }
+    }
+   ],
+   "expect": "StepOutOfOrder"
+  },
+  {
+   "name": "bad-format",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "xj4ILdcPg8cu_m1S28BVzA",
+    "exp_unix": 1800000060
+   },
+   "token": "not-a-token",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "BadFormat"
+  },
+  {
+   "name": "policy-version-mismatch",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "BxcDG5NfEx56SXT_QfRRGw",
+    "exp_unix": 1800000060
+   },
+   "token": "eyJkcnlfcnVuX2hhc2giOm51bGwsImV4cF91bml4IjoxODAwMDAwMDYwLCJub25jZSI6IkJ4Y0RHNU5mRXg1NlNYVF9RZlJSR3ciLCJwb2xpY3lfdmVyc2lvbiI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwcmluY2lwYWwiOiJ1aWQ6MTAwMC9zZXNzaW9uOjAxOTIwMDAwLTAwMDAtNzAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInJlcXVlc3RfaWQiOiIwMTkyMDAwMC0wMDAwLTcwMDAtODAwMC0wMDAwMDAwMDAwYWEiLCJzdGVwcyI6W3siYXJnc19oYXNoIjoiNTAzZmI2NzRmYjZiZjE3OWY1MmI1ZjRkMjJhY2Q1YTcxZjU0OTY2NmU5M2E1YmRjZGIyMjQyMDI3ZTY3MWJhYSIsInRvb2wiOiJmcy53cml0ZV9ub3RlIn1dLCJ0YXNrX3N0ZXAiOiJ0LTE6MCIsInVpZCI6MTAwMCwidiI6MX0.jk2sJJMK5WNg7k0rFkuPhwooxXoN5-Srd8dzpoiw0Y0eo86ENKA5RydYULHiDsKzAbAhSkF33catlSLGfnU7Dw",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "PolicyVersionMismatch"
+  },
+  {
+   "name": "too-long",
+   "kind": "single",
+   "claims": {
+    "v": 1,
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "uid": 1000,
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args_hash": "503fb674fb6bf179f52b5f4d22acd5a71f549666e93a5bdcdb2242027e671baa"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "nonce": "_GbwIcZ9BkwUkKErWk1NLw",
+    "exp_unix": 1800000060
+   },
+   "token": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "pending": {
+    "request_id": "01920000-0000-7000-8000-0000000000aa",
+    "uid": 1000,
+    "principal": "uid:1000/session:01920000-0000-7000-8000-000000000001",
+    "task_step": "t-1:0",
+    "steps": [
+     {
+      "tool": "fs.write_note",
+      "args": {
+       "name": "ke-hoach",
+       "text": "Họp lúc 9 giờ"
+      },
+      "risk": "medium"
+     }
+    ],
+    "dry_run_hash": null,
+    "policy_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "created_unix": 1800000000
+   },
+   "now_unix": 1800000005,
+   "consume": null,
+   "expect": "TooLong"
+  }
+ ]
+}
