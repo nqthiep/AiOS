@@ -40,7 +40,7 @@
    "rel": [],
    "prio": 0,
    "assignee": "leader",
-   "status": "todo",
+   "status": "done",
    "note": ""
   },
   "core": {
@@ -62,8 +62,8 @@
    ],
    "rel": [],
    "prio": 0,
-   "assignee": "worker",
-   "status": "todo",
+   "assignee": "leader",
+   "status": "done",
    "note": ""
   },
   "confirm": {
@@ -75,8 +75,8 @@
    ],
    "rel": [],
    "prio": 0,
-   "assignee": "worker",
-   "status": "todo",
+   "assignee": "worker@glm-5.3",
+   "status": "done",
    "note": ""
   },
   "audit": {
@@ -88,7 +88,7 @@
    "rel": [],
    "prio": 1,
    "assignee": "worker",
-   "status": "todo",
+   "status": "done",
    "note": ""
   },
   "registry": {
@@ -100,7 +100,7 @@
    "rel": [],
    "prio": 1,
    "assignee": "worker",
-   "status": "todo",
+   "status": "done",
    "note": ""
   },
   "broker": {
@@ -127,7 +127,7 @@
    "rel": [],
    "prio": 1,
    "assignee": "worker",
-   "status": "todo",
+   "status": "done",
    "note": ""
   },
   "gateway": {
@@ -139,7 +139,7 @@
    "rel": [],
    "prio": 0,
    "assignee": "worker",
-   "status": "todo",
+   "status": "doing",
    "note": ""
   },
   "llm": {
@@ -151,7 +151,7 @@
    "rel": [],
    "prio": 1,
    "assignee": "worker",
-   "status": "todo",
+   "status": "doing",
    "note": ""
   },
   "hindsight": {
@@ -191,7 +191,7 @@
    "rel": [],
    "prio": 2,
    "assignee": "worker",
-   "status": "todo",
+   "status": "doing",
    "note": ""
   },
   "s16": {
@@ -219,7 +219,7 @@
    ],
    "prio": 1,
    "assignee": "worker",
-   "status": "todo",
+   "status": "doing",
    "note": ""
   },
   "executor": {

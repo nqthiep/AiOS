@@ -7,6 +7,8 @@ rust-check:
 	cargo fmt --all --check
 	cargo clippy --workspace --all-targets -- -D warnings
 	cargo test --workspace
+	cargo test -p aios-policy --features spec-tests
+	cargo test -p aios-confirm --features spec-tests
 
 py-check:
 	uv run --directory python/aiosd-cognition ruff check .
