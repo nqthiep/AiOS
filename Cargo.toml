@@ -1,0 +1,30 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+edition = "2024"
+license = "Apache-2.0"
+version = "0.0.1"
+publish = false
+
+[workspace.dependencies]
+aios-types = { path = "crates/aios-types" }
+aios-policy = { path = "crates/aios-policy" }
+aios-confirm = { path = "crates/aios-confirm" }
+aios-audit = { path = "crates/aios-audit" }
+aios-registry = { path = "crates/aios-registry" }
+aios-broker = { path = "crates/aios-broker" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+anyhow = "1"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json", "env-filter"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }

@@ -4,3 +4,5 @@ __pycache__/
 .omo/
 # file khóa lúc chạy của oc-board.py
 .tasks/.board.lock
+target/
+.venv/

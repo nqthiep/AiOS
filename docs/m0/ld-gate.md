@@ -17,7 +17,7 @@ Leader sửa: `dev/vm/gate/` (script cổng), `docs/spikes/S-9-baseline-m0.md`, 
 
 ## Thiết kế
 
-Kịch bản cổng (chạy trong VM, người dùng `lima`, autonomy 1):
+Kịch bản cổng (chạy trong VM, user mặc định của VM, autonomy 1):
 
 | # | Bước | Mong đợi |
 | --- | --- | --- |

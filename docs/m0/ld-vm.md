@@ -28,7 +28,7 @@ Gói cài bằng `dnf` (Fedora 44):
 | Dịch vụ | `postgresql-server`, `postgresql18-pgvector` (tên theo mdapi F44), `llama-cpp` |
 | Đo | `sysstat`, `smem` \[Unverified có trong F44\] |
 
-- Tạo thư mục `/var/lib/aios/{audit,plugins/vendor,plugins/local}`, `/usr/share/aios/{plugins,trust}`, `/etc/aios`, `/run/aios` (qua `tmpfiles.d`), chủ sở hữu theo người dùng `lima` cho M0.
+- Tạo thư mục `/var/lib/aios/{audit,plugins/vendor,plugins/local}`, `/usr/share/aios/{plugins,trust}`, `/etc/aios`, `/run/aios` (qua `tmpfiles.d`), chủ sở hữu là user mặc định của VM (`quangthiep.guest`) cho M0.
 - Tạo slice người dùng `aios-agent.slice` (file `~/.config/systemd/user/aios-agent.slice`).
 - Không mở cổng nào ra ngoài VM.
 

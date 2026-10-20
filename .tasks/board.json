@@ -18,7 +18,7 @@
    "rel": [],
    "prio": 0,
    "assignee": "leader",
-   "status": "todo",
+   "status": "done",
    "note": ""
   },
   "ld-vm": {
@@ -28,7 +28,7 @@
    "rel": [],
    "prio": 0,
    "assignee": "leader",
-   "status": "todo",
+   "status": "done",
    "note": ""
   },
   "ld-secspec": {
