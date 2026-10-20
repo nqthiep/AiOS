@@ -62,15 +62,13 @@ AiOS là hệ điều hành mã nguồn mở (Apache-2.0) dựa trên Fedora (�
 
 ## 5. Bảng task M0
 
-Bảng sống nằm ở `.tasks/board.json` (bị `.gitignore`, chỉ có trên máy đang điều phối). Bản chụp ngày 2026-10-20 nằm ở [docs/m0/board-snapshot.json](docs/m0/board-snapshot.json). Khôi phục trên máy mới:
-
-```bash
-mkdir -p .tasks && cp docs/m0/board-snapshot.json .tasks/board.json
-```
+Bảng task nằm ở [.tasks/board.json](.tasks/board.json), được commit cùng repo. Xem bảng:
 
 ```bash
 ~/.claude/skills/opencode-lead/oc-board.py show
 ```
+
+Khi điều phối, commit `.tasks/board.json` sau mỗi lần bảng đổi để agent khác tiếp nhận được. File khóa `.tasks/.board.lock` không được commit.
 
 Bản chụp:
 

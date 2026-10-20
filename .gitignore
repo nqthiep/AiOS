@@ -2,4 +2,5 @@
 __pycache__/
 # trạng thái phiên của công cụ agent, không thuộc dự án
 .omo/
-.tasks/
+# file khóa lúc chạy của oc-board.py
+.tasks/.board.lock
