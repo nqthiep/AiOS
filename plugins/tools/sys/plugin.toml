@@ -1,0 +1,29 @@
+# Manifest of the AiOS tool plugin `aios.sys` (M0).
+# Schema: docs/m0/registry.md, design.md §15.2 and §9.2. Tool spec: docs/m0/tools3.md.
+id = "aios.sys"
+version = "0.1.0"
+api = "aios:plugin@0.1"
+provides = ["tool"]
+runtime = "mcp"
+entry = ["uv", "run", "--directory", "$PLUGIN_DIR", "python", "-I", "server.py"]
+trust = "core"
+capabilities = ["fs.read:/proc", "fs.read:/sys"]
+
+[sandbox]
+ro_paths = ["/proc", "/sys"]
+rw_paths = []
+tcp_connect = []
+landlock_required = true
+
+[[tools]]
+name = "sys.info"
+description = "Report the host system information: hostname, kernel, uptime, memory, CPU load and disk usage."
+risk = "low"
+reversible = true
+result_privacy = "personal"
+result_provenance = "observed"
+input_schema = '''
+{ "type": "object",
+  "properties": {},
+  "additionalProperties": false }
+'''
