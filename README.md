@@ -46,3 +46,12 @@ Sơ đồ chi tiết ở design.md §2.
 ## Giấy phép
 
 AiOS là dự án mã nguồn mở theo giấy phép Apache-2.0 (D-48). Riêng mã BPF chạy trong kernel dùng giấy phép kép GPL-2.0 hoặc BSD, vì kernel chỉ cho chương trình BPF khai giấy phép tương thích GPL gọi các helper GPL-only. Lưu ý các ràng buộc giấy phép của thành phần bên thứ ba ở tech-stack.md §13; oh-my-openagent không được đóng gói vì giấy phép SUL-1.0 không phải mã nguồn mở (D-20).
+
+## Tài liệu cũ từ repo này
+
+Trước bộ tài liệu AiOS, repo `nqthiep/AiOS` chứa tài liệu phân tích cho thiết kế công ty AI-native tự hành (CompanyOS; code ở repo [Company-OS](https://github.com/nqthiep/Company-OS)). Các file đó được giữ nguyên, không thuộc thiết kế AiOS:
+
+| File | Nội dung |
+| --- | --- |
+| `docs/design/thiet-ke-cong-ty-ai-native.md` | Thiết kế công ty AI-native tự hành (rev 11 gộp rev 12, ngày 18/10/2026) |
+| `docs/critique/phan-bien-rev12.md` | Phản biện rev 12 (14/10/2026) |
