@@ -10,6 +10,10 @@ workspace = true
 
 [dependencies]
 aios-types.workspace = true
+cedar-policy = "4.14"
+serde_json.workspace = true
+sha2 = "0.10"
+thiserror.workspace = true
 
 [features]
 # Bật test đặc tả do leader viết (tests/invariants.rs)

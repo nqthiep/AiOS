@@ -189,13 +189,13 @@ fn concrete_cases() {
         };
         let got = e.evaluate(&input);
         let want = c["expect"].as_str().unwrap();
-        let ok = match (want, &got) {
-            ("allow", Verdict::Allow) => true,
-            ("confirm", Verdict::Confirm(ConfirmLevel::Dialog)) => true,
-            ("confirm_pin", Verdict::Confirm(ConfirmLevel::DialogWithPin)) => true,
-            ("deny", Verdict::Deny(_)) => true,
-            _ => false,
-        };
+        let ok = matches!(
+            (want, &got),
+            ("allow", Verdict::Allow)
+                | ("confirm", Verdict::Confirm(ConfirmLevel::Dialog))
+                | ("confirm_pin", Verdict::Confirm(ConfirmLevel::DialogWithPin))
+                | ("deny", Verdict::Deny(_))
+        );
         assert!(ok, "case {}: want {want}, got {got:?}", c["name"]);
     }
 }
