@@ -1,0 +1,88 @@
+# Manifest of the AiOS tool plugin `aios.fs` (M0).
+# Schema: docs/m0/registry.md, design.md §15.2 and §9.2. Tool spec: docs/m0/tools3.md.
+id = "aios.fs"
+version = "0.1.0"
+api = "aios:plugin@0.1"
+provides = ["tool"]
+runtime = "mcp"
+entry = ["uv", "run", "--directory", "$PLUGIN_DIR", "python", "-I", "server.py"]
+trust = "core"
+capabilities = ["fs.read:$WORKSPACE", "fs.write:$WORKSPACE"]
+
+[sandbox]
+ro_paths = ["$WORKSPACE"]
+rw_paths = ["$WORKSPACE"]
+tcp_connect = []
+landlock_required = true
+
+[[tools]]
+name = "fs.search"
+description = "Search files inside the workspace by name (glob, case- and diacritic-insensitive)."
+risk = "low"
+reversible = true
+result_privacy = "personal"
+result_provenance = "external"
+input_schema = '''
+{ "type": "object",
+  "properties": {
+    "pattern": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Glob pattern matched against file names, or against relative paths when it contains '/'."
+    },
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50,
+      "description": "Maximum number of results. Default and hard cap: 50."
+    }
+  },
+  "required": ["pattern"],
+  "additionalProperties": false }
+'''
+
+[[tools]]
+name = "fs.write_note"
+description = "Write a markdown note into the workspace notes directory; returns an undo id."
+risk = "medium"
+reversible = true
+rollback_tool = "fs.undo_note"
+result_privacy = "personal"
+result_provenance = "observed"
+input_schema = '''
+{ "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[\\p{L}\\p{N} _-]{1,80}$",
+      "description": "Note name without extension: letters, digits, spaces, '_' and '-'. No path separator."
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 65536,
+      "description": "Markdown content of the note, at most 64 KiB."
+    }
+  },
+  "required": ["name", "content"],
+  "additionalProperties": false }
+'''
+
+[[tools]]
+name = "fs.undo_note"
+description = "Undo a previous fs.write_note call: restore the previous content or delete the new note."
+risk = "low"
+reversible = true
+result_privacy = "personal"
+result_provenance = "observed"
+input_schema = '''
+{ "type": "object",
+  "properties": {
+    "undo_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$",
+      "description": "Undo id returned by fs.write_note."
+    }
+  },
+  "required": ["undo_id"],
+  "additionalProperties": false }
+'''
