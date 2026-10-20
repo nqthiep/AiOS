@@ -6,6 +6,8 @@ Hệ điều hành tự hành dựa trên Linux, tích hợp mô hình ngôn ng�
 
 ## Tài liệu
 
+Agent tiếp nhận dự án: đọc [HANDOFF.md](HANDOFF.md) trước.
+
 | File | Nội dung |
 | --- | --- |
 | [docs/design.md](docs/design.md) | Thiết kế chi tiết: kiến trúc, tích hợp kernel, 3 cấp phản hồi, Model Gateway, bộ nhớ và tự học, UI sinh, giọng nói, công cụ, phần cứng, bảo mật, vận hành, lộ trình, rủi ro |

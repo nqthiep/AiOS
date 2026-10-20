@@ -1,0 +1,266 @@
+{
+ "mission": "Hiện thực mốc M0 của AiOS (roadmap.md §3): aiosd-core khung, Model Gateway, Hindsight, aiosctl; cổng: aiosctl ask chạy hết một yêu cầu với 3 tool",
+ "tasks": {
+  "m0": {
+   "title": "M0 · Nền móng (vỏ gom nhóm)",
+   "parent": null,
+   "deps": [],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
+  },
+  "ld-setup": {
+   "title": "Leader: dựng workspace Rust + Python, quy ước, make check, AGENTS.md cho worker",
+   "parent": "m0",
+   "deps": [],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
+  },
+  "ld-vm": {
+   "title": "Leader: cài toolchain vào VM aios-dev (Rust, clang, libbpf, bpftool, uv, Postgres+pgvector, llama.cpp)",
+   "parent": "m0",
+   "deps": [],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
+  },
+  "ld-secspec": {
+   "title": "Leader: viết trước test bất biến Cedar (6 bất biến) và test vector token xác nhận",
+   "parent": "m0",
+   "deps": [
+    "ld-setup"
+   ],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
+  },
+  "core": {
+   "title": "aiosd-core (vỏ gom nhóm)",
+   "parent": "m0",
+   "deps": [],
+   "rel": [],
+   "prio": 1,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
+  },
+  "policy": {
+   "title": "aios-policy: nạp auto/confirmable/forbid Cedar, tính context, trả Allow/Confirm/Deny; qua test bất biến",
+   "parent": "core",
+   "deps": [
+    "ld-setup",
+    "ld-secspec"
+   ],
+   "rel": [],
+   "prio": 0,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "confirm": {
+   "title": "aios-confirm: ConfirmClaims, chuẩn hóa NFC+JCS, ký/kiểm Ed25519, nonce một lần, hạn, token theo lô",
+   "parent": "core",
+   "deps": [
+    "ld-setup",
+    "ld-secspec"
+   ],
+   "rel": [],
+   "prio": 0,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "audit": {
+   "title": "aios-audit: audit log JSONL append-only có hash chain + lệnh verify",
+   "parent": "core",
+   "deps": [
+    "ld-setup"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "registry": {
+   "title": "aios-registry: đọc plugin.toml, kiểm chữ ký .sig, mức rủi ro hiệu lực = max(khai báo, suy ra)",
+   "parent": "core",
+   "deps": [
+    "ld-setup"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "broker": {
+   "title": "aios-broker: MCP endpoint aios-tools, gọi policy/confirm/audit/registry, idempotency key, nhãn session",
+   "parent": "core",
+   "deps": [
+    "policy",
+    "confirm",
+    "audit",
+    "registry"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "tools3": {
+   "title": "3 tool cho cổng M0: sys.info, fs.search (low), fs.write_note (medium, có undo)",
+   "parent": "m0",
+   "deps": [
+    "ld-setup"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "gateway": {
+   "title": "aios-model-gateway: /v1/chat/completions + /v1/embeddings, khóa ảo, nhãn session, secret không cloud, ngân sách theo người dùng",
+   "parent": "m0",
+   "deps": [
+    "ld-setup"
+   ],
+   "rel": [],
+   "prio": 0,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "llm": {
+   "title": "llama.cpp trong VM: unit systemd, tải mô hình nhỏ có tool calling + mô hình embedding, ghim sha256 vào models.lock",
+   "parent": "m0",
+   "deps": [
+    "ld-vm"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "hindsight": {
+   "title": "Spike S-4: Postgres+pgvector+hindsight-api-slim trong VM, LLM/embedding/reranker qua Gateway, không torch, đo RSS",
+   "parent": "m0",
+   "deps": [
+    "ld-vm",
+    "gateway",
+    "llm"
+   ],
+   "rel": [],
+   "prio": 2,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "cognition": {
+   "title": "aiosd-cognition tối thiểu + aiosctl: ask (grammar Reflex + vòng L2), status, audit verify, freeze",
+   "parent": "m0",
+   "deps": [
+    "broker",
+    "gateway",
+    "tools3"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "image": {
+   "title": "Containerfile ảnh AiOS: Fedora bootc ghim digest, đổi thương hiệu, unit systemd; build + bootc container lint",
+   "parent": "m0",
+   "deps": [
+    "ld-setup"
+   ],
+   "rel": [],
+   "prio": 2,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "s16": {
+   "title": "Spike S-16: bảng giấy phép mọi phụ thuộc (cargo-deny, pip-licenses) so với Apache-2.0",
+   "parent": "m0",
+   "deps": [
+    "cognition",
+    "image"
+   ],
+   "rel": [],
+   "prio": 2,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "sandbox": {
+   "title": "aios-sandbox-exec: bubblewrap + Landlock ABI V6 fail-closed + seccomp chặn UDP/raw; test trong VM",
+   "parent": "core",
+   "deps": [
+    "ld-setup",
+    "ld-vm"
+   ],
+   "rel": [
+    "s14"
+   ],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "executor": {
+   "title": "Broker executor: chạy tool process/mcp qua aios-sandbox-exec, cgroup tạm dưới aios-agent.slice",
+   "parent": "core",
+   "deps": [
+    "broker",
+    "sandbox"
+   ],
+   "rel": [],
+   "prio": 1,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "s14": {
+   "title": "Spike S-14 (phần Landlock): aios-sandbox-exec trên kernel 7.2 của VM, báo cáo ABI và hành vi",
+   "parent": "m0",
+   "deps": [
+    "sandbox"
+   ],
+   "rel": [],
+   "prio": 2,
+   "assignee": "worker",
+   "status": "todo",
+   "note": ""
+  },
+  "ld-gate": {
+   "title": "Leader: tích hợp, chạy cổng M0 trong VM (aiosctl ask + 3 tool, tắt aiosd vẫn chạy), đo S-9 baseline",
+   "parent": "m0",
+   "deps": [
+    "executor",
+    "cognition",
+    "hindsight",
+    "s14"
+   ],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
+  }
+ }
+}
