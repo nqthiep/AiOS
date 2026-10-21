@@ -28,3 +28,24 @@ vm-test:
 
 image:
 	docker build --platform linux/arm64 -f image/Containerfile -t aios:m0 .
+
+# Dependency licence check (spike S-16, docs/spikes/S-16-licenses.md).
+# Rust: deny.toml. Python: every uv project tracked in git, dev group included.
+# Allowed Python licence strings: the SPDX ids of deny.toml, the classifier
+# name "MIT License", and SPDX "OR" expressions whose every choice is allowed.
+# Per-package exceptions (reasons in the report): cffi (MIT-0),
+# typing_extensions (PSF-2.0).
+PY_LICENSE_ALLOW := MIT;MIT License;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;Unicode-3.0;Zlib;MPL-2.0;Apache-2.0 OR BSD-2-Clause;Apache-2.0 OR BSD-3-Clause
+PY_LICENSE_EXCEPT := cffi typing_extensions
+PY_PROJECTS := $(patsubst %/pyproject.toml,%,$(shell git ls-files '*pyproject.toml'))
+
+.PHONY: licenses
+
+licenses:
+	cargo deny check licenses
+	@set -e; for p in $(PY_PROJECTS); do \
+		echo "== $$p"; \
+		uv sync --frozen --quiet --directory $$p; \
+		uvx pip-licenses==5.5.5 --python $$p/.venv/bin/python --from=mixed --with-system \
+			--allow-only="$(PY_LICENSE_ALLOW)" --ignore-packages $(PY_LICENSE_EXCEPT); \
+	done
