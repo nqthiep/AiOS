@@ -1,0 +1,84 @@
+# Sample Model Gateway config (docs/m0/gateway.md).
+# Installed copy: /etc/aios/gateway.yaml
+#
+# Per-user config lives in /var/lib/aios/users/<uid>/gateway.yaml;
+# without that file, cloud is disabled for the user.
+
+# Client API listen address (integration.md §11.1).
+listen: "127.0.0.1:8090"
+
+# Per-request upstream timeout (seconds).
+request_timeout_s: 120
+
+models:
+  # Local models: OpenAI-compatible llama-server.
+  s1-local:
+    kind: local
+    endpoint: "http://127.0.0.1:8081/v1"
+    model: "s1-model"
+  s2-local:
+    kind: local
+    endpoint: "http://127.0.0.1:8081/v1"
+    model: "s2-model"
+  coder-local:
+    kind: local
+    endpoint: "http://127.0.0.1:8081/v1"
+    model: "coder-model"
+  # Embedding model: always local (REQ-D-5.2-04).
+  embed-local:
+    kind: local
+    endpoint: "http://127.0.0.1:8082/v1"
+    model: "embed-model"
+
+  # Cloud providers: OpenAI-compatible. The API key comes from the user's
+  # config (api_key_ref), never from this file.
+  s2-cloud:
+    kind: openai_compatible
+    base_url: "https://api.example.com/v1"
+    model: "s2-cloud-model"
+    provider: "openai"
+    # Price per million tokens (USD), charged to the user's budget.
+    price_per_mtok_in: 0.15
+    price_per_mtok_out: 0.60
+  coder-cloud:
+    kind: openai_compatible
+    base_url: "https://api.example.com/v1"
+    model: "coder-cloud-model"
+    provider: "openai"
+    price_per_mtok_in: 2.50
+    price_per_mtok_out: 10.00
+
+# Routes: logical model -> upstreams, tried in order.
+# Cloud routes for `secret` are blocked in code even if the config allows them.
+routes:
+  - model: s1
+    use: [s1-local]
+  - model: s2
+    use: [s2-cloud, s2-local]
+  - model: coder
+    use: [coder-local, coder-cloud]
+
+# Model used for /v1/embeddings (must be local).
+embeddings_model: embed-local
+
+# Per-client config (integration.md §3.1).
+# Effective cloud ceiling = min(client ceiling, user max_cloud_privacy).
+clients:
+  aiosd-l2:
+    max_cloud_privacy: personal
+    key_scope: session
+  opencode:
+    max_cloud_privacy: personal
+    key_scope: session
+  aiosd-core-security:
+    cloud: false
+    key_scope: service
+  hindsight:
+    cloud: false
+    key_scope: service
+  browser-use:
+    max_cloud_privacy: public
+    key_scope: plugin
+  system1:
+    cloud: false
+    key_scope: session
