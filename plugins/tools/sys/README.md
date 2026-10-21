@@ -6,10 +6,11 @@ Thiết kế: [docs/m0/tools3.md](../../../docs/m0/tools3.md), lược đồ man
 ## Chạy
 
 ```bash
-uv run --directory plugins/tools/sys python -I server.py
+uv sync --directory plugins/tools/sys --frozen --no-dev --python /usr/bin/python3
+plugins/tools/sys/.venv/bin/python -I plugins/tools/sys/server.py
 ```
 
-Đây chính là `entry` trong `plugin.toml` (registry thay `$PLUGIN_DIR` bằng thư mục của plugin).
+Dòng thứ hai chính là `entry` trong `plugin.toml` (Executor thay `$PLUGIN_DIR` bằng thư mục của plugin). Venv phải dựng sẵn lúc cài: trong sandbox, `uv run` không ghi được cache của uv.
 
 ## Biến môi trường
 

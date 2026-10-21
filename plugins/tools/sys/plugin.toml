@@ -5,7 +5,9 @@ version = "0.1.0"
 api = "aios:plugin@0.1"
 provides = ["tool"]
 runtime = "mcp"
-entry = ["uv", "run", "--directory", "$PLUGIN_DIR", "python", "-I", "server.py"]
+# The venv is built at install time (`uv sync --frozen --no-dev --python /usr/bin/python3`):
+# `uv run` needs a writable uv cache, which the sandbox does not grant.
+entry = ["$PLUGIN_DIR/.venv/bin/python", "-I", "$PLUGIN_DIR/server.py"]
 trust = "core"
 capabilities = ["fs.read:/proc", "fs.read:/sys"]
 
