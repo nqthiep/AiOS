@@ -260,8 +260,8 @@
    "rel": [],
    "prio": 0,
    "assignee": "leader",
-   "status": "doing",
-   "note": ""
+   "status": "done",
+   "note": "cổng đạt 8/8, lần chạy 3 và 4 (docs/spikes/S-9-baseline-m0.md)"
   },
   "sandbox-fix": {
    "title": "Sửa L-1/L-2 của S-14: quyền Landlock cho file, nâng ABI V9 (RESOLVE_UNIX)",
@@ -294,6 +294,26 @@
    "assignee": "leader",
    "status": "done",
    "note": "qemu-user-static có sẵn trong ảnh nền fedora-bootc: để M1 quyết gỡ"
+  },
+  "s17": {
+   "title": "Spike S-17: aios-trusted-ui qua ext-session-lock-v1 trên niri và cosmic-comp",
+   "parent": "m0",
+   "deps": [],
+   "rel": [],
+   "prio": 1,
+   "assignee": "leader",
+   "status": "todo",
+   "note": "chờ môi trường: phiên đồ họa"
+  },
+  "s24": {
+   "title": "Spike S-24: systemd-sysext trên ảnh bootc + composefs",
+   "parent": "m0",
+   "deps": [],
+   "rel": [],
+   "prio": 2,
+   "assignee": "leader",
+   "status": "todo",
+   "note": "chờ môi trường: boot ảnh aios:m0"
   }
  }
 }

@@ -120,6 +120,6 @@ Ba nguyên tắc chi phối mọi quyết định:
 
 ## 5. Trạng thái
 
-- Giai đoạn thiết kế; chưa có mã nguồn.
+- M0 (nền móng) đã hiện thực và qua cổng nghiệm thu trong VM phát triển (2026-10-21, [spikes/S-9-baseline-m0.md](spikes/S-9-baseline-m0.md)); M1 chưa bắt đầu.
 - Quyết định đã chốt và đang đề xuất: [decisions.md](decisions.md) (D-01 → D-53).
 - Câu hỏi còn mở cần chủ dự án quyết định: roadmap.md §5 và design.md §14.

@@ -159,6 +159,8 @@ flowchart TD
 | M5 | Chưng cất kỹ năng (mẫu hermes-agent), Curator, biên dịch Reflex; Harness² lúc build tối ưu prompt, `aios-skills`, script mặc định (integration §15.3) | Shadow mode đạt; rollback kỹ năng và rule đã diễn tập; harness mới không giảm pass^k trên bộ kịch bản vàng | S-25 |
 | R | LoRA, driver do agent sinh, tiến hóa vùng mở (D-14), tự cải thiện harness trên máy người dùng (integration §15.4), sched\_ext | Theo từng đề tài | — |
 
+**Trạng thái M0 (2026-10-21).** Cổng nghiệm thu đạt trong VM `aios-dev` (arm64), 2 lần liên tiếp, bằng `dev/vm/gate/run.sh`: 8/8 bước của docs/m0/ld-gate.md ([S-9-baseline-m0](spikes/S-9-baseline-m0.md)). Spike đã có báo cáo: S-4, S-9 (baseline), S-13 (đo nhanh M0), S-14 (phần Landlock), S-16. Chưa làm: S-13 đầy đủ (cần phần cứng mục tiêu và khóa cloud), S-17 (cần phiên đồ họa trên niri hoặc cosmic-comp), S-24 (cần boot ảnh bootc). Ảnh `aios:m0` build và qua `bootc container lint` nhưng chưa boot.
+
 ### 3.1 Spike mới
 
 | Mã | Spike | Đạt khi |

@@ -1,6 +1,6 @@
 # AiOS — Nhật ký quyết định
 
-_Cập nhật: 2026-10-18_
+_Cập nhật: 2026-10-21_
 
 Trạng thái: **Đã chốt** = chủ dự án quyết định; **Chờ xác nhận** = thiết kế đề xuất cách hiện thực khác hoặc thêm ràng buộc, cần chủ dự án duyệt; **Đề xuất** = khuyến nghị chưa được chốt; **Chưa thiết kế** = đã nêu nhưng chưa có trong tài liệu; **Thay thế** = đã bị một quyết định sau thay, ghi rõ ở cột Ghi chú.
 
@@ -23,7 +23,7 @@ Trạng thái: **Đã chốt** = chủ dự án quyết định; **Chờ xác nh
 | D-15 | Dùng 12 repo làm thành phần: linux, deepseek-harness, WeKnora, Hindsight, opencode, oh-my-openagent, rea, ArtCraft (storytold), OpenShell, gpui-kit, browser-use, hermes-agent (tham khảo) | Đã chốt | Sau D-16, deepseek-harness và hermes-agent chỉ làm mẫu tham khảo, không cài; sau D-20, oh-my-openagent không đóng gói | integration.md §1 |
 | D-16 | Tự viết desktop environment cho AiOS; không dùng deepseek-harness (phương án C) | Đã chốt | `aios-compositor` (Smithay) + `aios-shell` + `aios-trusted-ui`; toolkit theo D-17; học kiến trúc plugin của deepseek-harness. `aios-compositor` vào ở M3 (D-35) | integration.md §1.1, §7; roadmap.md |
 | D-17 | gpui-kit thay Slint làm toolkit của `aios-shell` và `aios-trusted-ui` | Đã chốt cho M1 | Chủ dự án chọn app chat gpui-kit khi chốt D-35; spike S-11 kiểm renderer UI IR ở M3. Bộ gõ tiếng Việt (S-3) không chặn quyết định | integration.md §7; roadmap.md |
-| D-18 | Hindsight thay bảng bộ nhớ tự viết; WeKnora cho tri thức tài liệu; dùng chung một Postgres | Đã chốt (Hindsight) / Đề xuất (WeKnora) | Hindsight có từ M1 (D-36); WeKnora ở M4; bank theo nhãn và taint | integration.md §6; roadmap.md |
+| D-18 | Hindsight thay bảng bộ nhớ tự viết; WeKnora cho tri thức tài liệu; dùng chung một Postgres | Đã chốt (Hindsight) / Đề xuất (WeKnora) | Hindsight có từ M1 (D-36); WeKnora ở M4; bank theo nhãn và taint. Spike S-4 (2026-10-21): Hindsight 1.0 chạy không torch, LLM và embedding qua Model Gateway route local, RSS khi rảnh khoảng 200–420 MiB; `retain` chậm trên CPU (26–59 s/câu) và `psycopg2-binary` là LGPL, cần xử lý ở M1 (docs/spikes/S-4-hindsight.md) | integration.md §6; roadmap.md |
 | D-19 | OpenShell bọc tiến trình agent và MCP rủi ro cao; `aios-sandbox-exec` giữ cho tool L0/L1 | Đề xuất | Từ M4; M1–M3 chỉ dùng `aios-sandbox-exec`. Cần Podman rootless và microVM | integration.md §5; roadmap.md |
 | D-20 | Không đóng gói oh-my-openagent kèm AiOS | Đã chốt | Chủ dự án quyết định ngày 2026-10-19: AiOS là mã nguồn mở (D-48), giấy phép SUL-1.0 không tương thích; thay bằng skill pack tự viết `aios-skills` | integration.md §1.2 |
 | D-21 | Mọi agent gọi LLM qua Model Gateway (khóa ảo) và gọi tool qua Tool Broker (một MCP endpoint `aios-tools`) | Đã chốt | Chủ dự án chốt ngày 2026-10-19. Nhãn riêng tư tính theo session, xem D-24 | integration.md §3 |

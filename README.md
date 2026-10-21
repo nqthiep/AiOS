@@ -2,7 +2,7 @@
 
 Hệ điều hành tự hành dựa trên Linux, tích hợp mô hình ngôn ngữ lớn (LLM). AiOS phản hồi qua 3 cấp (code logic, System 1, System 2), tự học, giao tiếp bằng giọng nói, dùng công cụ, tự khám phá phần cứng mới, và lấy giao diện chatbot làm màn hình chính thay cho desktop environment truyền thống.
 
-> **Trạng thái:** giai đoạn thiết kế, chưa có mã nguồn. \[Inference\] Toàn bộ tài liệu là thiết kế đề xuất, chưa được kiểm chứng bằng triển khai; số liệu độ trễ, tài nguyên và ngưỡng là ước lượng.
+> **Trạng thái (2026-10-21):** mốc M0 (nền móng) đã hiện thực và qua cổng nghiệm thu trong VM phát triển ([docs/spikes/S-9-baseline-m0.md](docs/spikes/S-9-baseline-m0.md)); M1 chưa bắt đầu. \[Inference\] Phần thiết kế từ M1 trở đi chưa được kiểm chứng bằng triển khai; số liệu độ trễ, tài nguyên và ngưỡng là ước lượng.
 
 ## Tài liệu
 

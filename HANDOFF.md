@@ -1,8 +1,8 @@
 # AiOS — Bàn giao công việc
 
-_Cập nhật: 2026-10-20. Người bàn giao: Claude (phiên thiết kế với chủ dự án nqthiep)._
+_Cập nhật: 2026-10-21. Người bàn giao: Claude (leader M0, phiên với chủ dự án nqthiep)._
 
-**Tài liệu này dành cho agent tiếp nhận dự án. Đọc hết file này trước khi làm bất cứ việc gì. Dự án đang ở cuối giai đoạn thiết kế: bộ tài liệu thiết kế đã đủ và được chủ dự án chốt phần lớn; mốc M0 (nền móng) đã được chia thành 19 task có thiết kế chi tiết; chưa có dòng mã nào và chưa giao task nào.**
+**Tài liệu này dành cho agent tiếp nhận dự án. Đọc hết file này trước khi làm bất cứ việc gì. Mốc M0 (nền móng) đã hiện thực xong và cổng nghiệm thu M0 đạt trong VM `aios-dev` (docs/spikes/S-9-baseline-m0.md). Còn 2 spike của M0 chờ môi trường (S-17, S-24). Việc tiếp theo là M1.**
 
 ## 1. Dự án là gì
 
@@ -26,11 +26,13 @@ AiOS là hệ điều hành mã nguồn mở (Apache-2.0) dựa trên Fedora (�
 
 | Mục | Trạng thái |
 | --- | --- |
-| Thiết kế | Đủ cho M0–M1. 40 quyết định đã chốt; 6 đề xuất chờ kết quả spike (D-13, D-14, D-19, D-27, D-30, D-44); 2 thay thế (D-12, D-23) |
-| Mã nguồn | Chưa có |
-| Kế hoạch M0 | 21 task (19 task thực hiện + 2 vỏ nhóm), thiết kế chi tiết ở [docs/m0/](docs/m0/README.md) |
-| Giao việc | Chưa giao task nào; chủ dự án đã yêu cầu chia task để giao worker, **chưa xác nhận bắt đầu giao** |
-| Repo | github.com/nqthiep/AiOS (public), nhánh `main` |
+| Thiết kế | Đủ cho M0–M1. Quyết định ở decisions.md (D-01 → D-53) |
+| Mã nguồn | M0 xong trên `main` local: 9 crate Rust (`aios-types`, `aios-audit`, `aios-registry`, `aios-policy`, `aios-confirm`, `aios-broker`, `aiosd-core`, `aios-model-gateway`, `aios-sandbox-exec`), `python/aiosd-cognition` (`aiosctl`), 2 plugin tool (`plugins/tools/{sys,fs}`), chính sách Cedar `policy/`, ảnh `image/` |
+| Cổng M0 | Đạt 8/8 bước, 2 lần liên tiếp, bằng `dev/vm/gate/{setup,run}.sh` trong VM |
+| Spike có báo cáo | `docs/spikes/`: S-4 (Hindsight), S-9 (baseline M0), S-13 (đo nhanh mô hình local), S-14 (Landlock), S-16 (giấy phép) |
+| Chưa làm | S-17, S-24 (chờ môi trường), S-13 đầy đủ (chờ phần cứng mục tiêu và khóa cloud); ảnh `aios:m0` chưa boot |
+| Kiểm tra | `make check` (fmt, clippy, test Rust gồm test bất biến Cedar và vector token, ruff + pytest, requirements); `make licenses` |
+| Repo | github.com/nqthiep/AiOS (public), nhánh `main`. **Các commit M0 chưa được push** (chỉ push khi chủ dự án yêu cầu) |
 | Môi trường | Mac (Apple M5, 32 GB) + VM `aios-dev` (Fedora 44, kernel 7.2.11) |
 
 ## 3. Quyết định then chốt cần nhớ (chi tiết ở decisions.md)
@@ -53,12 +55,17 @@ AiOS là hệ điều hành mã nguồn mở (Apache-2.0) dựa trên Fedora (�
 
 ## 4. Việc tiếp theo, theo thứ tự
 
-1. **Hỏi chủ dự án xác nhận bắt đầu M0** (nếu chưa có). Việc giao worker OpenCode tốn quota OpenCode Go; theo quy tắc của chủ dự án, phải hỏi trước (§6).
-2. **ld-setup** (leader): dựng Cargo workspace, crate `aios-types`, project Python, `Makefile`, `dev/vm-run.sh`, `AGENTS.md`. Trên Mac, Rust chưa có toolchain mặc định: chạy `rustup default stable` trước. Thiết kế: [docs/m0/ld-setup.md](docs/m0/ld-setup.md).
-3. **ld-vm** (leader): `dev/vm/setup.sh` cài công cụ vào VM. Thiết kế: [docs/m0/ld-vm.md](docs/m0/ld-vm.md).
-4. **ld-secspec** (leader, không giao worker vì nhạy cảm an ninh): chính sách Cedar, test bất biến duyệt 3.072 tổ hợp, test vector token. Thiết kế: [docs/m0/ld-secspec.md](docs/m0/ld-secspec.md).
-5. Giao worker đợt 2 song song: audit, registry, sandbox, gateway, tools3, llm, image; rồi các đợt sau theo bảng (§5).
-6. **ld-gate** (leader): chạy cổng M0 trong VM, ghi baseline S-9.
+1. **Hỏi chủ dự án có push các commit M0 lên remote không** (repo public).
+2. **Các việc còn hở từ M0, nên làm đầu M1** (chi tiết ở docs/spikes/S-9-baseline-m0.md §5 và cột ghi chú của bảng task):
+   - `aiosd-core` chạy dưới dạng unit user vì Executor dùng `systemd-run --user`, trong khi ảnh khai nó là dịch vụ hệ thống: chốt mô hình chạy theo từng người dùng (design §18).
+   - Kill switch: `aiosctl freeze` không thu hồi khóa ảo; `aios-killswitch.service` đóng băng nhầm cấp.
+   - Kênh (`channel`) do client tự khai khi mở session với Broker.
+   - Tường lửa IP của systemd không có hiệu lực với unit user (S-13-m0): mô hình local chạy unit user vẫn ra mạng được.
+   - Khóa ảo của Gateway chỉ nằm trong bộ nhớ.
+   - seccomp là danh sách chặn; chưa xét ABI x32 trên x86_64.
+   - `psycopg2-binary` (LGPL) của Hindsight; 16 gói firmware không nguồn mở trong ảnh (chủ dự án quyết, D-48).
+3. **S-17, S-24** khi có môi trường (bảng task: `s17`, `s24`).
+4. **M1** theo roadmap.md §2.
 
 ## 5. Bảng task M0
 
@@ -70,33 +77,42 @@ Bảng task nằm ở [.tasks/board.json](.tasks/board.json), được commit c�
 
 Khi điều phối, commit `.tasks/board.json` sau mỗi lần bảng đổi để agent khác tiếp nhận được. File khóa `.tasks/.board.lock` không được commit.
 
-Bản chụp:
+Bản chụp (2026-10-21):
 
+**Nhiệm vụ:** Hiện thực mốc M0 của AiOS (roadmap.md §3): aiosd-core khung, Model Gateway, Hindsight, aiosctl; cổng: aiosctl ask chạy hết một yêu cầu với 3 tool
 | Đợt | ID | Ưu tiên | Việc | Quan hệ | Giao cho | Trạng thái |
 |---|---|---|---|---|---|---|
-| 1 | m0 | P0 | M0 · Nền móng (vỏ gom nhóm) | - | leader | 0/13 con xong |
-| 1 | ld-setup | P0 | └ Leader: dựng workspace Rust + Python, quy ước, make check, AGENTS.md cho worker | →ld-secspec,policy,confirm,audit,registry,tools3,gateway,image,sandbox | leader | sẵn sàng |
-| 1 | ld-vm | P0 | └ Leader: cài toolchain vào VM aios-dev (Rust, clang, libbpf, bpftool, uv, Postgres+pgvector, llama.cpp) | →llm,hindsight,sandbox | leader | sẵn sàng |
-| 1 | core | P1 | └ aiosd-core (vỏ gom nhóm) | - | leader | 0/7 con xong |
-| 2 | audit | P1 | └ └ aios-audit: audit log JSONL append-only có hash chain + lệnh verify | ←ld-setup →broker | worker | bị chặn (đợi ld-setup) |
-| 2 | registry | P1 | └ └ aios-registry: đọc plugin.toml, kiểm chữ ký .sig, mức rủi ro hiệu lực = max(khai báo, suy ra) | ←ld-setup →broker | worker | bị chặn (đợi ld-setup) |
-| 2 | sandbox | P1 | └ └ aios-sandbox-exec: bubblewrap + Landlock ABI V6 fail-closed + seccomp chặn UDP/raw; test trong VM | ←ld-setup,ld-vm →executor,s14 ~s14 | worker | bị chặn (đợi ld-setup,ld-vm) |
-| 3 | policy | P0 | └ └ aios-policy: nạp auto/confirmable/forbid Cedar, tính context, trả Allow/Confirm/Deny; qua test bất biến | ←ld-setup,ld-secspec →broker | worker | bị chặn (đợi ld-setup,ld-secspec) |
-| 3 | confirm | P0 | └ └ aios-confirm: ConfirmClaims, chuẩn hóa NFC+JCS, ký/kiểm Ed25519, nonce một lần, hạn, token theo lô | ←ld-setup,ld-secspec →broker | worker | bị chặn (đợi ld-setup,ld-secspec) |
-| 4 | broker | P1 | └ └ aios-broker: MCP endpoint aios-tools, gọi policy/confirm/audit/registry, idempotency key, nhãn session | ←policy,confirm,audit,registry →cognition,executor | worker | bị chặn (đợi policy,confirm,audit,registry) |
-| 5 | executor | P1 | └ └ Broker executor: chạy tool process/mcp qua aios-sandbox-exec, cgroup tạm dưới aios-agent.slice | ←broker,sandbox →ld-gate | worker | bị chặn (đợi broker,sandbox) |
-| 2 | ld-secspec | P0 | └ Leader: viết trước test bất biến Cedar (6 bất biến) và test vector token xác nhận | ←ld-setup →policy,confirm | leader | bị chặn (đợi ld-setup) |
-| 2 | gateway | P0 | └ aios-model-gateway: /v1/chat/completions + /v1/embeddings, khóa ảo, nhãn session, secret không cloud, ngân sách theo người dùng | ←ld-setup →hindsight,cognition | worker | bị chặn (đợi ld-setup) |
-| 2 | tools3 | P1 | └ 3 tool cho cổng M0: sys.info, fs.search (low), fs.write_note (medium, có undo) | ←ld-setup →cognition | worker | bị chặn (đợi ld-setup) |
-| 2 | llm | P1 | └ llama.cpp trong VM: unit systemd, tải mô hình nhỏ có tool calling + mô hình embedding, ghim sha256 vào models.lock | ←ld-vm →hindsight | worker | bị chặn (đợi ld-vm) |
-| 2 | image | P2 | └ Containerfile ảnh AiOS: Fedora bootc ghim digest, đổi thương hiệu, unit systemd; build + bootc container lint | ←ld-setup →s16 | worker | bị chặn (đợi ld-setup) |
-| 3 | hindsight | P2 | └ Spike S-4: Postgres+pgvector+hindsight-api-slim trong VM, LLM/embedding/reranker qua Gateway, không torch, đo RSS | ←ld-vm,gateway,llm →ld-gate | worker | bị chặn (đợi ld-vm,gateway,llm) |
-| 3 | s14 | P2 | └ Spike S-14 (phần Landlock): aios-sandbox-exec trên kernel 7.2 của VM, báo cáo ABI và hành vi | ←sandbox →ld-gate | worker | bị chặn (đợi sandbox) |
-| 5 | cognition | P1 | └ aiosd-cognition tối thiểu + aiosctl: ask (grammar Reflex + vòng L2), status, audit verify, freeze | ←broker,gateway,tools3 →s16,ld-gate | worker | bị chặn (đợi broker,gateway,tools3) |
-| 6 | ld-gate | P0 | └ Leader: tích hợp, chạy cổng M0 trong VM (aiosctl ask + 3 tool, tắt aiosd vẫn chạy), đo S-9 baseline | ←executor,cognition,hindsight,s14 | leader | bị chặn (đợi executor,cognition,hindsight,s14) |
-| 6 | s16 | P2 | └ Spike S-16: bảng giấy phép mọi phụ thuộc (cargo-deny, pip-licenses) so với Apache-2.0 | ←cognition,image | worker | bị chặn (đợi cognition,image) |
+| 1 | m0 | P0 | M0 · Nền móng (vỏ gom nhóm) | - | leader | 13/16 con xong |
+| 1 | ld-setup | P0 | └ Leader: dựng workspace Rust + Python, quy ước, make check, AGENTS.md cho worker | →ld-secspec,policy,confirm,audit,registry,tools3,gateway,image,sandbox | leader | đạt |
+| 1 | ld-vm | P0 | └ Leader: cài toolchain vào VM aios-dev (Rust, clang, libbpf, bpftool, uv, Postgres+pgvector, llama.cpp) | →llm,hindsight,sandbox | leader | đạt |
+| 1 | core | P1 | └ aiosd-core (vỏ gom nhóm) | - | leader | 9/9 con xong |
+| 1 | audit-fix | P0 | └ └ Sửa split_last_lines của aios-audit (log 2–3 dòng không mở lại được) | - | leader | đạt — phát hiện bởi cognition; test reopening_after_any_line_count |
+| 2 | audit | P1 | └ └ aios-audit: audit log JSONL append-only có hash chain + lệnh verify | ←ld-setup✓ →broker | worker | đạt |
+| 2 | registry | P1 | └ └ aios-registry: đọc plugin.toml, kiểm chữ ký .sig, mức rủi ro hiệu lực = max(khai báo, suy ra) | ←ld-setup✓ →broker | worker | đạt |
+| 2 | sandbox | P1 | └ └ aios-sandbox-exec: bubblewrap + Landlock ABI V6 fail-closed + seccomp chặn UDP/raw; test trong VM | ←ld-setup✓,ld-vm✓ →executor,s14 ~s14 | leader | đạt — seccomp là denylist: x32 ABI trên x86_64 chưa xét; Landlock chưa cấp /dev/null, /proc, /etc/pki |
+| 3 | policy | P0 | └ └ aios-policy: nạp auto/confirmable/forbid Cedar, tính context, trả Allow/Confirm/Deny; qua test bất biến | ←ld-setup✓,ld-secspec✓ →broker | leader | đạt |
+| 3 | confirm | P0 | └ └ aios-confirm: ConfirmClaims, chuẩn hóa NFC+JCS, ký/kiểm Ed25519, nonce một lần, hạn, token theo lô | ←ld-setup✓,ld-secspec✓ →broker | worker@glm-5.3 | đạt |
+| 4 | sandbox-fix | P0 | └ └ Sửa L-1/L-2 của S-14: quyền Landlock cho file, nâng ABI V9 (RESOLVE_UNIX) | ←s14✓ →executor | leader | đạt — L-3 (fd kế thừa) giao cho executor: đóng fd trước khi gọi helper |
+| 4 | broker | P1 | └ └ aios-broker: MCP endpoint aios-tools, gọi policy/confirm/audit/registry, idempotency key, nhãn session | ←policy✓,confirm✓,audit✓,registry✓ →cognition,executor | leader | đạt — channel tự khai trong /v1/session (M1 cần xác minh); quiet_hours bỏ qua; rmcp 3.6.0 |
+| 5 | executor | P1 | └ └ Broker executor: chạy tool process/mcp qua aios-sandbox-exec, cgroup tạm dưới aios-agent.slice | ←broker✓,sandbox✓,sandbox-fix✓ →ld-gate | leader | đạt — L-3: từ chối chạy khi có fd không CLOEXEC; systemd-run --user chưa hợp với aiosd-core là system service (M1) |
+| 1 | s17 | P1 | └ Spike S-17: aios-trusted-ui qua ext-session-lock-v1 trên niri và cosmic-comp | - | leader | sẵn sàng — chờ môi trường: phiên đồ họa |
+| 1 | image-deps | P2 | └ Ảnh: cài phụ thuộc Python của aiosd-cognition theo uv.lock (đang --no-deps), bỏ qemu-user-static | - | leader | đạt — qemu-user-static có sẵn trong ảnh nền fedora-bootc: để M1 quyết gỡ |
+| 1 | s24 | P2 | └ Spike S-24: systemd-sysext trên ảnh bootc + composefs | - | leader | sẵn sàng — chờ môi trường: boot ảnh aios:m0 |
+| 2 | ld-secspec | P0 | └ Leader: viết trước test bất biến Cedar (6 bất biến) và test vector token xác nhận | ←ld-setup✓ →policy,confirm | leader | đạt |
+| 2 | gateway | P0 | └ aios-model-gateway: /v1/chat/completions + /v1/embeddings, khóa ảo, nhãn session, secret không cloud, ngân sách theo người dùng | ←ld-setup✓ →hindsight,cognition | leader | đạt — budget check+charge không nguyên tử (ponytail); cache_prompt chưa kiểm với llama.cpp F44 |
+| 2 | tools3 | P1 | └ 3 tool cho cổng M0: sys.info, fs.search (low), fs.write_note (medium, có undo) | ←ld-setup✓ →cognition | worker | đạt |
+| 2 | llm | P1 | └ llama.cpp trong VM: unit systemd, tải mô hình nhỏ có tool calling + mô hình embedding, ghim sha256 vào models.lock | ←ld-vm✓ →hindsight | leader | đạt — IPAddressDeny không hiệu lực ở unit user: chấp nhận cho M0, chuyển sang system unit ở M1 |
+| 2 | image | P2 | └ Containerfile ảnh AiOS: Fedora bootc ghim digest, đổi thương hiệu, unit systemd; build + bootc container lint | ←ld-setup✓ →s16 | leader | đạt — killswitch freeze aios-agent.slice ở system manager, nhưng slice là user unit: sửa ở M1 (per-user) |
+| 3 | hindsight | P2 | └ Spike S-4: Postgres+pgvector+hindsight-api-slim trong VM, LLM/embedding/reranker qua Gateway, không torch, đo RSS | ←ld-vm✓,gateway✓,llm✓ →ld-gate | leader | đạt — probe đạt (sub-agent, ~20 phút; leader chỉ kiểm lại service, no-torch, MemoryCurrent); psycopg2-binary LGPL; khóa Gateway mất khi restart; gateway.yaml dev ghi đè /etc/aios |
+| 3 | s14 | P2 | └ Spike S-14 (phần Landlock): aios-sandbox-exec trên kernel 7.2 của VM, báo cáo ABI và hành vi | ←sandbox✓ →ld-gate,sandbox-fix | leader | đạt — phát hiện L-1 (file trong profile → fail closed), L-2 (allow_unix_socket không thực thi dưới V6): task sandbox-fix |
+| 5 | cognition | P1 | └ aiosd-cognition tối thiểu + aiosctl: ask (grammar Reflex + vòng L2), status, audit verify, freeze | ←broker✓,gateway✓,tools3✓ →s16,ld-gate | leader | đạt — freeze chưa revoke-all (aiosd-core không có endpoint; thuộc killswitch); file pending 0644 trong thư mục 0711 lúc ký |
+| 6 | ld-gate | P0 | └ Leader: tích hợp, chạy cổng M0 trong VM (aiosctl ask + 3 tool, tắt aiosd vẫn chạy), đo S-9 baseline | ←executor✓,cognition✓,hindsight✓,s14✓ | leader | đạt — cổng đạt 8/8, lần chạy 3 và 4 (docs/spikes/S-9-baseline-m0.md) |
+| 6 | s16 | P2 | └ Spike S-16: bảng giấy phép mọi phụ thuộc (cargo-deny, pip-licenses) so với Apache-2.0 | ←cognition✓,image✓ | leader | đạt — 16 gói firmware không nguồn mở trong ảnh: chủ dự án quyết; ảnh cài wheel --no-deps nên thiếu mcp; qemu-user-static trong ảnh |
 
-Ba spike của M0 chưa có trong bảng vì thiếu môi trường: S-17 (cần phiên đồ họa trên niri), S-24 (cần hệ bootc đã boot), S-13 đầy đủ (cần benchmark tiếng Việt và khóa API cloud).
+Tổng 26 · đạt 22 · đang làm 0 · sẵn sàng 2 · bị chặn 0 · huỷ 0
+Quan hệ: ←phụ thuộc (✓ đã xong) · →chặn · ~liên quan · └ task con. Đợt = thứ tự thực hiện, cùng đợt chạy song song được.
+
+M0 được làm theo skill `opencode-lead`: worker OpenCode làm đợt đầu (audit, registry, tools3, confirm); khi quota OpenCode Go hết, chủ dự án chọn để leader (Claude) làm nốt, dùng sub-agent Claude trong worktree `../wt-<id>`. Mọi task đều được leader nghiệm thu bằng cách tự chạy lại lệnh nghiệm thu trước khi merge.
 
 ## 6. Quy tắc làm việc với chủ dự án
 
@@ -113,7 +129,7 @@ Ba spike của M0 chưa có trong bảng vì thiếu môi trường: S-17 (cần
 
 ## 7. Môi trường
 
-**Mac** (máy của chủ dự án): Homebrew, Docker Desktop, `uv`, Python 3.14, `rustup` (chưa đặt toolchain mặc định), `opencode` v2.0.32, `gh` đã đăng nhập tài khoản `nqthiep`.
+**Mac** (máy của chủ dự án): Homebrew, Docker Desktop, `uv`, Python 3.14, Rust 1.99.1 (`rust-toolchain.toml`), `cargo-deny` 0.20.2, `opencode` v2.0.32 (bỏ cờ `--dir`; `oc-task.sh` đã được sửa để chạy từ trong worktree), `gh` đã đăng nhập tài khoản `nqthiep`.
 
 **VM `aios-dev`** (Lima 2.2.1, cấu hình [dev/lima/aios-dev.yaml](dev/lima/aios-dev.yaml)):
 
@@ -141,14 +157,19 @@ limactl start --name=aios-dev dev/lima/aios-dev.yaml
 - **Ổ đĩa Mac** từng chỉ còn khoảng 16 GB trống (lần đo sau còn 39 GB); kiểm `df -h /` trước khi tải mô hình hay build ảnh.
 - **Repo public**: mọi thứ push lên đều công khai. Không commit khóa, file `.env`, khóa ký dev.
 - **Tài liệu cũ không thuộc AiOS**: `docs/design/thiet-ke-cong-ty-ai-native.md` và `docs/critique/phan-bien-rev12.md` là tài liệu CompanyOS có sẵn trên remote, được giữ nguyên; không sửa, không trích yêu cầu từ đó.
+- **Dựng lại M0 trong VM**: `dev/vm-run.sh 'bash dev/vm/gate/setup.sh && bash dev/vm/gate/run.sh'`. `setup.sh` khởi động lại Gateway và cấp lại khóa cho Hindsight (khóa ảo chỉ nằm trong bộ nhớ). Trạng thái cổng ở `/var/lib/aios/gate/`, output ở `~/gate-out/` trong VM.
+- **Mô hình 4B trên CPU chậm**: một lượt L2 của cổng mất 80–120 s; `retain` của Hindsight mất 26–59 s mỗi câu.
+- **Thư mục tạm dưới `/tmp` trong sandbox**: Landlock cấp quyền ghi `/tmp`, nên test hay fixture đặt dưới `/tmp` sẽ thấy quyền rộng hơn thực tế; dùng `/var/tmp`.
+- **llama.cpp đổi schema tool thành grammar**: regex `\p{...}` trong `pattern` làm `llama-server` trả HTTP 400; `aiosctl` bỏ `pattern` (chuỗi) khỏi schema gửi mô hình.
 - **Mã yêu cầu REQ-... đổi số** khi tài liệu gốc thêm hoặc bớt câu; khi trích dẫn, kèm mục thiết kế gốc.
 
 ## 9. Việc chờ chủ dự án
 
 | Việc | Ghi chú |
 | --- | --- |
-| Xác nhận bắt đầu giao worker M0 | Xem §4 bước 1 |
+| Push các commit M0 lên remote | Repo public; chưa push |
+| Firmware không nguồn mở trong ảnh | 16 gói `LicenseRef-Fedora-Firmware` (docs/spikes/S-16-licenses.md); giữ hay bỏ trong ảnh phát hành (D-48) |
 | Khóa API cloud và ngân sách thử nghiệm | Cho S-1, S-13, S-18, S-25; chủ dự án tự nhập |
-| Laptop x86_64 | Cho spike phần cứng |
+| Laptop x86_64 | Cho spike phần cứng và S-13 đầy đủ |
 | Cách hiện thực bộ gõ tiếng Việt | Chủ dự án sẽ cung cấp sau (D-51) |
 | niri hay cosmic-comp | Quyết sau spike S-17 |
