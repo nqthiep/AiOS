@@ -115,8 +115,8 @@
    "rel": [],
    "prio": 1,
    "assignee": "leader",
-   "status": "doing",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "channel tự khai trong /v1/session (M1 cần xác minh); quiet_hours bỏ qua; rmcp 3.6.0"
   },
   "tools3": {
    "title": "3 tool cho cổng M0: sys.info, fs.search (low), fs.write_note (medium, có undo)",
@@ -179,7 +179,7 @@
    "rel": [],
    "prio": 1,
    "assignee": "leader",
-   "status": "todo",
+   "status": "doing",
    "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "image": {
@@ -227,12 +227,13 @@
    "parent": "core",
    "deps": [
     "broker",
-    "sandbox"
+    "sandbox",
+    "sandbox-fix"
    ],
    "rel": [],
    "prio": 1,
    "assignee": "leader",
-   "status": "todo",
+   "status": "doing",
    "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "s14": {
@@ -244,8 +245,8 @@
    "rel": [],
    "prio": 2,
    "assignee": "leader",
-   "status": "doing",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "phát hiện L-1 (file trong profile → fail closed), L-2 (allow_unix_socket không thực thi dưới V6): task sandbox-fix"
   },
   "ld-gate": {
    "title": "Leader: tích hợp, chạy cổng M0 trong VM (aiosctl ask + 3 tool, tắt aiosd vẫn chạy), đo S-9 baseline",
@@ -261,6 +262,18 @@
    "assignee": "leader",
    "status": "todo",
    "note": ""
+  },
+  "sandbox-fix": {
+   "title": "Sửa L-1/L-2 của S-14: quyền Landlock cho file, nâng ABI V9 (RESOLVE_UNIX)",
+   "parent": "core",
+   "deps": [
+    "s14"
+   ],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "done",
+   "note": "L-3 (fd kế thừa) giao cho executor: đóng fd trước khi gọi helper"
   }
  }
 }
