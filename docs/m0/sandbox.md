@@ -30,7 +30,7 @@ aios-sandbox-exec --profile <file.json> [--stage2] -- <cmd> [args...]
    - mỗi `ro_paths` → `--ro-bind`, mỗi `rw_paths` → `--bind`;
    - lệnh trong bwrap là chính binary này với `--stage2 --profile <file> -- <cmd...>`.
 2. **Giai đoạn 2** (`--stage2`, đã ở trong bwrap):
-   - Landlock với `ABI::V6`: `handle_access(AccessFs::from_all)` và `AccessNet::from_all`; quyền đọc cho `ro_paths` + `/usr` + `/etc/ssl`; quyền ghi cho `rw_paths` + `/tmp`; `NetPort` connect cho từng cổng trong `tcp_connect`; scope abstract UNIX socket và signal.
+   - Landlock với `ABI::V9` (đổi từ V6 sau S-14): `handle_access(AccessFs::from_all)` và `AccessNet::from_all`; quyền đọc cho `ro_paths` + `/usr` + `/etc/ssl`; quyền ghi cho `rw_paths` + `/tmp`; `RESOLVE_UNIX` cho `allow_unix_socket`; đường dẫn không phải thư mục chỉ nhận quyền dành cho file (`AccessFs::from_file`); `NetPort` connect cho từng cổng trong `tcp_connect`; scope abstract UNIX socket và signal.
    - Nếu `landlock_required` và trạng thái không phải `FullyEnforced` → in lỗi, thoát mã 70, không chạy lệnh (fail closed, REQ-T-8-01). Nếu không bắt buộc và chỉ `PartiallyEnforced` → ghi cảnh báo ra stderr rồi chạy tiếp.
    - seccomp (crate `seccompiler`): mặc định cho phép; từ chối với `EPERM`: `socket` với domain khác `AF_UNIX`/`AF_INET`/`AF_INET6`, `socket` kiểu `SOCK_RAW` hoặc `SOCK_DGRAM` trên `AF_INET*`, `ptrace`, `bpf`, `perf_event_open`, `kexec_load`, `init_module`, `finit_module`, `mount`, `umount2`, `pivot_root`, `unshare`, `setns`.
    - `prctl(PR_SET_NO_NEW_PRIVS)` trước seccomp; rồi `execve(cmd)`.

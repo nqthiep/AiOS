@@ -6,7 +6,7 @@
 //! - `--die-with-parent --new-session --cap-drop ALL`;
 //! - `--ro-bind /usr /usr` and the Fedora `/bin`, `/lib`, `/lib64`, `/sbin` symlinks;
 //! - `--proc /proc --dev /dev --tmpfs /tmp`;
-//! - each `ro_paths` entry → `--ro-bind`, each `rw_paths` entry → `--bind`;
+//! - each `ro_paths` and `allow_unix_socket` entry → `--ro-bind`, each `rw_paths` entry → `--bind`;
 //! - the command inside bubblewrap is this helper with `--stage2 --profile <file> -- <cmd...>`.
 
 use std::path::Path;
@@ -109,9 +109,10 @@ fn bwrap_args(
     for path in &profile.rw_paths {
         args.extend(["--bind", path, path].map(String::from));
     }
-    // Connecting to a UNIX socket needs write access to the socket inode.
+    // connect(2) on a socket works on a read-only mount (S-14); Landlock
+    // RESOLVE_UNIX decides which sockets may be connected.
     for path in &profile.allow_unix_socket {
-        args.extend(["--bind", path, path].map(String::from));
+        args.extend(["--ro-bind", path, path].map(String::from));
     }
 
     // Stage 2 runs this helper again and re-reads the profile: both must be

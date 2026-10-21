@@ -1,9 +1,12 @@
 //! Stage 2 Landlock ruleset (docs/m0/sandbox.md).
 //!
-//! Landlock ABI V6 ruleset: handles every filesystem and network access,
+//! Landlock ABI V9 ruleset: handles every filesystem and network access,
 //! grants read to `ro_paths` + `/usr` + `/etc/ssl`, write to `rw_paths` +
-//! `/tmp`, TCP connect to each port in `tcp_connect`, and scopes abstract
-//! UNIX sockets and signals.
+//! `/tmp`, connect (`RESOLVE_UNIX`, V9) to each `allow_unix_socket`, TCP
+//! connect to each port in `tcp_connect`, and scopes abstract UNIX sockets
+//! and signals. Rules on non-directories only carry file access rights
+//! (S-14 L-1); V9 is needed so pathname UNIX sockets outside
+//! `allow_unix_socket` cannot be connected (S-14 L-2).
 //!
 //! When the profile sets `landlock_required` and the status is not
 //! `FullyEnforced`, the helper refuses to run the command (fail closed,
@@ -20,7 +23,7 @@ use landlock::{
 use crate::linux::error::{Failure, code};
 
 /// Landlock ABI requested by the sandbox.
-pub const REQUESTED_ABI: ABI = ABI::V6;
+pub const REQUESTED_ABI: ABI = ABI::V9;
 
 /// Paths always readable in the sandbox.
 const READ_PATHS: &[&str] = &["/usr", "/etc/ssl"];
@@ -80,7 +83,7 @@ pub fn apply(profile: &SandboxProfile) -> Result<Enforcement, Failure> {
         ruleset = add_path_rule(ruleset, path, write)?;
     }
     for path in &profile.allow_unix_socket {
-        ruleset = add_path_rule(ruleset, path, write)?;
+        ruleset = add_path_rule(ruleset, path, AccessFs::ResolveUnix.into())?;
     }
     for port in &profile.tcp_connect {
         ruleset = ruleset
@@ -105,7 +108,7 @@ pub fn apply(profile: &SandboxProfile) -> Result<Enforcement, Failure> {
 
 /// Decides whether the sandbox is fully enforced.
 fn enforcement(status: &RulesetStatus) -> Enforcement {
-    // Test hook: emulate an older kernel on which the V6 access rights
+    // Test hook: emulate an older kernel on which the V9 access rights
     // cannot all be enforced.
     if let Some(abi) = forced_abi()
         && abi < REQUESTED_ABI
@@ -133,6 +136,13 @@ fn add_path_rule(
     path: &str,
     access: BitFlags<AccessFs>,
 ) -> Result<RulesetCreated, Failure> {
+    // Directory-only rights on a file make the ruleset partially enforced,
+    // which fails closed (S-14 L-1): keep only the rights valid for files.
+    let access = if Path::new(path).is_dir() {
+        access
+    } else {
+        access & AccessFs::from_file(REQUESTED_ABI)
+    };
     let fd = PathFd::new(path).map_err(|err| {
         Failure::new(
             code::LANDLOCK,

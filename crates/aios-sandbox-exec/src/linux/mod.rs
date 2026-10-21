@@ -28,7 +28,7 @@ pub fn run() -> Result<(), Failure> {
 /// 1. read the profile and check its paths;
 /// 2. resolve the child command in `PATH` (before Landlock restricts opens);
 /// 3. `PR_SET_NO_NEW_PRIVS` (required by Landlock and seccomp);
-/// 4. Landlock ABI V6 — fail closed when the profile requires it;
+/// 4. Landlock ABI V9 — fail closed when the profile requires it;
 /// 5. seccomp — deny dangerous syscalls with `EPERM`;
 /// 6. `execve` the child command.
 fn run_stage2(cli: &Cli) -> Result<(), Failure> {

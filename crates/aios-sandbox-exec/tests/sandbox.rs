@@ -27,7 +27,9 @@ struct Fixture {
 impl Fixture {
     /// Creates a fixture with the default profile: no network, Landlock required.
     fn new(name: &str) -> Self {
-        let root = std::env::temp_dir().join(format!(
+        // Not under /tmp: the sandbox grants Landlock write on /tmp, which
+        // would add to every rule below it (S-14).
+        let root = PathBuf::from("/var/tmp").join(format!(
             "aios-sandbox-exec-{}-{name}-{}",
             std::process::id(),
             COUNTER.fetch_add(1, Ordering::Relaxed)
@@ -283,4 +285,72 @@ print("not denied:", bad) if bad else print("ok")
 
     assert!(output.status.success(), "stderr: {}", stderr(&output));
     assert_eq!(String::from_utf8_lossy(&output.stdout), "ok\n");
+}
+
+/// Writes a profile with explicit `ro_paths` and `allow_unix_socket` (Landlock required).
+fn write_paths_profile(
+    fixture: &Fixture,
+    ro_paths: &[&std::path::Path],
+    unix: &[&std::path::Path],
+) {
+    let list = |paths: &[&std::path::Path]| {
+        paths
+            .iter()
+            .map(|p| json_string(&p.to_string_lossy()))
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    let json = format!(
+        "{{\"ro_paths\": [{}], \"rw_paths\": [], \"tcp_connect\": [], \"allow_unix_socket\": [{}], \
+         \"memory_max_mb\": 512, \"landlock_required\": true}}",
+        list(ro_paths),
+        list(unix)
+    );
+    std::fs::write(&fixture.profile, json).expect("write the profile");
+}
+
+/// A single file in `ro_paths` is readable and does not fail closed (S-14 L-1).
+#[test]
+fn file_in_ro_paths_is_fully_enforced() {
+    let fixture = Fixture::new("ro-file");
+    let file = fixture.ro.join("one.txt");
+    std::fs::write(&file, "one").expect("write the file");
+    write_paths_profile(&fixture, &[&file], &[]);
+
+    let output = fixture.run(&["cat", &file.to_string_lossy()]);
+
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
+    assert_eq!(String::from_utf8_lossy(&output.stdout), "one");
+}
+
+/// Only sockets in `allow_unix_socket` can be connected (S-14 L-1, L-2).
+#[test]
+fn only_allowed_unix_sockets_can_be_connected() {
+    use std::os::unix::net::UnixListener;
+
+    let fixture = Fixture::new("unix");
+    let allowed = fixture.rw.join("allowed.sock");
+    let other = fixture.ro.join("other.sock");
+    let _allowed = UnixListener::bind(&allowed).expect("bind the allowed socket");
+    let _other = UnixListener::bind(&other).expect("bind the other socket");
+    write_paths_profile(&fixture, &[&fixture.ro], &[&allowed]);
+
+    let script = "import socket, sys\n\
+                  for p in sys.argv[1:]:\n    \
+                  s = socket.socket(socket.AF_UNIX)\n    \
+                  try:\n        s.connect(p); print('ok')\n    \
+                  except OSError as e:\n        print(e.errno)\n";
+    let output = fixture.run(&[
+        "python3",
+        "-c",
+        script,
+        &allowed.to_string_lossy(),
+        &other.to_string_lossy(),
+    ]);
+
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
+    assert_eq!(
+        String::from_utf8_lossy(&output.stdout),
+        "ok\n13\n" // 13 = EACCES
+    );
 }

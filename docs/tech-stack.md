@@ -445,7 +445,7 @@ use landlock::{Access, AccessFs, AccessNet, NetPort, PathBeneath, PathFd,
                Ruleset, RulesetAttr, RulesetCreatedAttr, RulesetStatus, ABI};
 
 fn apply_landlock(m: &Manifest) -> anyhow::Result<()> {
-    let abi = ABI::V6;   // V6+: scope abstract UNIX socket và signal; kernel 7.2 của Fedora có ABI 10, crate 0.4.7 tới V9
+    let abi = ABI::V9;   // V9: RESOLVE_UNIX + scope abstract UNIX socket và signal; kernel 7.2 của Fedora có ABI 10, crate 0.4.7 tới V9 (S-14)
     let mut rs = Ruleset::default()
         .handle_access(AccessFs::from_all(abi))?
         .handle_access(AccessNet::from_all(abi))?

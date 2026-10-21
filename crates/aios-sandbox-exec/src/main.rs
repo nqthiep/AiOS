@@ -3,7 +3,7 @@
 //! See docs/m0/sandbox.md.
 //!
 //! - Stage 1 (default): read the profile, build the `bwrap` command, `execve` it.
-//! - Stage 2 (`--stage2`): already inside bubblewrap; apply Landlock (ABI V6,
+//! - Stage 2 (`--stage2`): already inside bubblewrap; apply Landlock (ABI V9,
 //!   fail closed) + seccomp, then `execve` the child command.
 //!
 //! Exit codes: the child's exit code is passed through; sandbox errors use

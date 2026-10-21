@@ -276,3 +276,11 @@ và thời gian (biến `S14_RUNS`, mặc định 50), rồi xóa thư mục t�
 - Phần BPF LSM của S-14 (M2).
 - Đo trên kernel cũ thật (ABI < 6) và trên kernel kế tiếp của Fedora.
 - Sửa L-1, L-2, L-3 trong `aios-sandbox-exec`.
+
+## 8. Trạng thái sau sửa (2026-10-21, task `sandbox-fix`)
+
+- L-1 đã sửa: đường dẫn không phải thư mục chỉ nhận `AccessFs::from_file(ABI::V9)`; test `file_in_ro_paths_is_fully_enforced` (file trong `ro_paths`, `landlock_required=true`) thoát 0.
+- L-2 đã sửa: helper yêu cầu `ABI::V9`, `allow_unix_socket` nhận đúng `RESOLVE_UNIX` và được `--ro-bind`. Test `only_allowed_unix_sockets_can_be_connected`: socket được cấp → connect được, socket trong `ro_paths` → `EACCES`. Kiểm đột biến: đổi lại `ABI::V6` thì test này FAIL.
+- Hệ quả: kernel có ABI < 9 giờ bị fail closed khi `landlock_required=true` (ma trận ABI giả lập ở §5 đo với V6; ép ABI 6–8 nay cũng thoát 70 — \[Inference\] suy từ điều kiện `abi < REQUESTED_ABI` trong `landlock.rs`, chưa chạy lại `run.sh`).
+- Fixture test chuyển từ `/tmp` sang `/var/tmp`, vì quyền ghi Landlock cấp cho `/tmp` cộng vào mọi rule bên dưới nó.
+- L-3 (fd kế thừa) chưa sửa: Executor (task `executor`) phải đóng fd không cần trước khi gọi helper.
