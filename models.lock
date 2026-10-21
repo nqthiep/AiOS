@@ -1,0 +1,31 @@
+# models.lock — Mô hình local của AiOS (M0).
+#
+# Đây là nguồn chân lý duy nhất cho `dev/vm/llm/install.sh`:
+#   - Mỗi mô hình có: name, role (s1 | s2 | embedding), url, sha256, size, license.
+#   - `sha256` là SHA-256 của đúng file GGUF (trùng với LFS oid của Hugging Face).
+#   - `size` là số byte của file (dùng để kiểm nhanh trước khi băm).
+#   - Thư mục cài đặt trong VM: /var/lib/aios/models/<name>/<12 ký tự đầu của sha256>/
+#
+# Tiêu chí chọn (docs/m0/llm.md): GGUF lượng tử hóa khoảng 4 bit, ≤ 3 GB,
+# giấy phép Apache-2.0 hoặc MIT, hỗ trợ tool calling qua template chat của
+# `llama-server --jinja`, có tiếng Việt.
+#
+# Ghi chú tương thích: llama-cpp b6153 trong VM chỉ có các kiến trúc qwen2/qwen3,
+# nên dòng Qwen3.5 (arch `qwen3_5`, phát hành 2026-02) không dùng được; mô hình
+# chat lấy từ dòng Qwen3 (2025-08), bản Instruct-2507 được huấn luyện tool calling.
+
+[[model]]
+name = "Qwen3-4B-Instruct-2507"
+role = "s1"
+url = "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen3-4B-Instruct-2507-Q4_K_M.gguf"
+sha256 = "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597"
+size = 2497281120
+license = "Apache-2.0"
+
+[[model]]
+name = "multilingual-e5-large-instruct"
+role = "embedding"
+url = "https://huggingface.co/Ralriki/multilingual-e5-large-instruct-GGUF/resolve/main/multilingual-e5-large-instruct-q4_k_m.gguf"
+sha256 = "1956e01710cab35b7f7c0fdf56ba387069de4b78e3b6c1bd2a121c1b22c81f47"
+size = 406322304
+license = "MIT"
