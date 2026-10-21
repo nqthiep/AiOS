@@ -10,3 +10,19 @@ workspace = true
 
 [dependencies]
 aios-types.workspace = true
+aios-broker.workspace = true
+aios-policy.workspace = true
+aios-confirm.workspace = true
+aios-audit.workspace = true
+aios-registry.workspace = true
+anyhow.workspace = true
+serde.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+base64 = "0.22"
+ed25519-dalek = "2"
+serde_yaml_ng = "0.10"
+
+[dev-dependencies]
+tempfile = "3"
