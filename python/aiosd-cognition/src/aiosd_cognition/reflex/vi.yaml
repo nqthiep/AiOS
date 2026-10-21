@@ -8,7 +8,9 @@ rules:
     tool: sys.info
     args: {}
   - id: fs.find
-    pattern: '^tìm (file|tệp) (?P<q>.+)$'
+    # A single lookup only: a request chaining another action ("... rồi ghi ...",
+    # "..., và ...") goes to L2.
+    pattern: '^tìm (file|tệp) (?P<q>(?:(?! rồi | và | sau đó )[^,;])+)$'
     tool: fs.search
     # fs.search takes a glob `pattern` (plugins/tools/fs/plugin.toml); match q anywhere in the name.
     args:

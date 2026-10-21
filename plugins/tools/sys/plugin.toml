@@ -9,10 +9,11 @@ runtime = "mcp"
 # `uv run` needs a writable uv cache, which the sandbox does not grant.
 entry = ["$PLUGIN_DIR/.venv/bin/python", "-I", "$PLUGIN_DIR/server.py"]
 trust = "core"
-capabilities = ["fs.read:/proc", "fs.read:/sys"]
+# The workspace is read only for its disk usage (sys.info).
+capabilities = ["fs.read:/proc", "fs.read:/sys", "fs.read:$WORKSPACE"]
 
 [sandbox]
-ro_paths = ["/proc", "/sys"]
+ro_paths = ["/proc", "/sys", "$WORKSPACE"]
 rw_paths = []
 tcp_connect = []
 landlock_required = true

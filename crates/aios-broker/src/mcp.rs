@@ -118,7 +118,10 @@ impl rmcp::ServerHandler for BrokerMcp {
                 .await
                 .map_err(|e| ErrorData::internal_error(e.to_string(), None))?;
         let output = result.map_err(|e| to_error(&e))?;
+        // `resultType` is mandatory from protocol 2026-07-28 (rmcp strips it for
+        // older peers); from_value would leave it unset.
         let result: CallToolResult = serde_json::from_value(json!({
+            "resultType": "complete",
             "content": output.content,
             "isError": output.is_error,
             "_meta": {"privacy": output.privacy, "provenance": output.provenance},

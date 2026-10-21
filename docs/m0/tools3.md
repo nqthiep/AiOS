@@ -25,7 +25,7 @@ Hai plugin MCP stdio viết bằng Python, mỗi plugin có `plugin.toml` đã k
 | `aios.fs` | `fs.undo_note` | low | có | Hoàn tác theo `undo_id`: khôi phục bản cũ hoặc xóa file mới |
 
 - `fs.write_note` khai `rollback_tool = "fs.undo_note"`. `name` theo mẫu `^[\p{L}\p{N} _-]{1,80}$`, không có `/` hay `..`; nội dung tối đa 64 KiB.
-- `capabilities`: `aios.sys` → `["fs.read:/proc", "fs.read:/sys"]`; `aios.fs` → `["fs.read:$WORKSPACE", "fs.write:$WORKSPACE"]`.
+- `capabilities`: `aios.sys` → `["fs.read:/proc", "fs.read:/sys", "fs.read:$WORKSPACE"]` (đọc dung lượng workspace; thêm khi chạy cổng M0); `aios.fs` → `["fs.read:$WORKSPACE", "fs.write:$WORKSPACE"]`.
 - `sandbox`: `ro_paths` / `rw_paths` tương ứng; `tcp_connect = []`; `landlock_required = true`.
 - `result_privacy = "personal"`; `result_provenance`: `observed` cho `sys.info`; `external` cho `fs.search` (tên file do bên ngoài đặt, design §6.3).
 - Dùng SDK Python `mcp` (FastMCP) qua stdio; Python ≥ 3.14; mỗi plugin là một uv project nhỏ, entry trong `plugin.toml` là `["/usr/bin/env", "python3", "-I", "<đường dẫn>/server.py"]` \[Inference\] trong M0 cài phụ thuộc vào venv của plugin, entry trỏ vào python của venv đó.

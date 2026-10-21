@@ -36,6 +36,8 @@ def test_grammar_rejects_near_misses() -> None:
     rules = load_grammar()
     assert match_l0("trạng thái máy tính", rules) is None
     assert match_l0("tìm file", rules) is None
+    assert match_l0("tìm file kế hoạch rồi ghi một ghi chú tên là tom-tat", rules) is None
+    assert match_l0("tìm file kế hoạch, ghi chú lại", rules) is None
 
 
 def test_note_goes_l2_through_confirmation() -> None:
