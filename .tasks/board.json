@@ -292,8 +292,8 @@
    "rel": [],
    "prio": 2,
    "assignee": "leader",
-   "status": "todo",
-   "note": ""
+   "status": "done",
+   "note": "qemu-user-static có sẵn trong ảnh nền fedora-bootc: để M1 quyết gỡ"
   }
  }
 }
