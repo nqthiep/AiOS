@@ -204,8 +204,8 @@
    "rel": [],
    "prio": 2,
    "assignee": "leader",
-   "status": "todo",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "16 gói firmware không nguồn mở trong ảnh: chủ dự án quyết; ảnh cài wheel --no-deps nên thiếu mcp; qemu-user-static trong ảnh"
   },
   "sandbox": {
    "title": "aios-sandbox-exec: bubblewrap + Landlock ABI V6 fail-closed + seccomp chặn UDP/raw; test trong VM",
@@ -233,8 +233,8 @@
    "rel": [],
    "prio": 1,
    "assignee": "leader",
-   "status": "doing",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "L-3: từ chối chạy khi có fd không CLOEXEC; systemd-run --user chưa hợp với aiosd-core là system service (M1)"
   },
   "s14": {
    "title": "Spike S-14 (phần Landlock): aios-sandbox-exec trên kernel 7.2 của VM, báo cáo ABI và hành vi",
@@ -284,6 +284,16 @@
    "assignee": "leader",
    "status": "done",
    "note": "phát hiện bởi cognition; test reopening_after_any_line_count"
+  },
+  "image-deps": {
+   "title": "Ảnh: cài phụ thuộc Python của aiosd-cognition theo uv.lock (đang --no-deps), bỏ qemu-user-static",
+   "parent": "m0",
+   "deps": [],
+   "rel": [],
+   "prio": 2,
+   "assignee": "leader",
+   "status": "todo",
+   "note": ""
   }
  }
 }
