@@ -1,0 +1,42 @@
+# Template unit systemd cho llama-server (mô hình embedding của AiOS).
+#
+# KHÔNG cài trực tiếp file này: `dev/vm/llm/install.sh` render từ `models.lock`
+# rồi ghi bản thật vào ~/.config/systemd/user/aios-llm-embed.service.
+#
+# Biến được thay khi render: LLAMA_SERVER, EMBED_PORT, MODEL_FILE, MODEL_DIR, MEMORY_MAX.
+[Unit]
+Description=AiOS local embedding model (llama-server, OpenAI-compatible API)
+Documentation=docs/m0/llm.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=@LLAMA_SERVER@ --host 127.0.0.1 --port @EMBED_PORT@ -m @MODEL_FILE@ --embeddings --pooling cls
+Restart=on-failure
+RestartSec=3s
+TimeoutStopSec=30s
+
+# Sandboxing (docs/m0/llm.md). PrivateNetwork= không dùng được vì server cần
+# loopback để Model Gateway gọi; thay bằng tường lửa IP của systemd.
+# Lưu ý: systemd chỉ thực thi tường lửa IP cho unit của system manager, user
+# manager chỉ ghi cảnh báo "not running as root" (xem docs/spikes/S-13-m0.md).
+IPAddressDeny=any
+IPAddressAllow=localhost
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+NoNewPrivileges=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+LockPersonality=yes
+ReadOnlyPaths=@MODEL_DIR@
+MemoryMax=@MEMORY_MAX@
+TasksMax=512
+
+[Install]
+WantedBy=default.target

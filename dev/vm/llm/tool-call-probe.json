@@ -1,0 +1,49 @@
+{
+  "model": "Qwen3-4B-Instruct-2507",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Bạn là trợ lý của hệ điều hành AiOS. Dùng tool khi cần."
+    },
+    {
+      "role": "user",
+      "content": "Tìm giúp tôi các file PDF có chữ \"hợp đồng\" trong thư mục Tài liệu."
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Tra cứu thời tiết hiện tại tại một địa điểm.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "location": { "type": "string", "description": "Tên thành phố hoặc địa điểm" }
+          },
+          "required": ["location"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "fs_search",
+        "description": "Tìm file theo tên hoặc nội dung trong một thư mục.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": { "type": "string", "description": "Chuỗi cần tìm" },
+            "path": { "type": "string", "description": "Thư mục cần tìm" },
+            "extension": { "type": "string", "description": "Phần mở rộng file, ví dụ pdf" }
+          },
+          "required": ["query"]
+        }
+      }
+    }
+  ],
+  "tool_choice": "auto",
+  "temperature": 0,
+  "max_tokens": 256,
+  "stream": false
+}
