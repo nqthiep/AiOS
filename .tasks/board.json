@@ -139,8 +139,8 @@
    "rel": [],
    "prio": 0,
    "assignee": "leader",
-   "status": "doing",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "budget check+charge không nguyên tử (ponytail); cache_prompt chưa kiểm với llama.cpp F44"
   },
   "llm": {
    "title": "llama.cpp trong VM: unit systemd, tải mô hình nhỏ có tool calling + mô hình embedding, ghim sha256 vào models.lock",
@@ -165,7 +165,7 @@
    "rel": [],
    "prio": 2,
    "assignee": "leader",
-   "status": "todo",
+   "status": "doing",
    "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "cognition": {
