@@ -114,9 +114,9 @@
    ],
    "rel": [],
    "prio": 1,
-   "assignee": "worker",
-   "status": "todo",
-   "note": ""
+   "assignee": "leader",
+   "status": "doing",
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "tools3": {
    "title": "3 tool cho cổng M0: sys.info, fs.search (low), fs.write_note (medium, có undo)",
@@ -138,9 +138,9 @@
    ],
    "rel": [],
    "prio": 0,
-   "assignee": "worker",
+   "assignee": "leader",
    "status": "doing",
-   "note": ""
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "llm": {
    "title": "llama.cpp trong VM: unit systemd, tải mô hình nhỏ có tool calling + mô hình embedding, ghim sha256 vào models.lock",
@@ -150,9 +150,9 @@
    ],
    "rel": [],
    "prio": 1,
-   "assignee": "worker",
-   "status": "doing",
-   "note": ""
+   "assignee": "leader",
+   "status": "done",
+   "note": "IPAddressDeny không hiệu lực ở unit user: chấp nhận cho M0, chuyển sang system unit ở M1"
   },
   "hindsight": {
    "title": "Spike S-4: Postgres+pgvector+hindsight-api-slim trong VM, LLM/embedding/reranker qua Gateway, không torch, đo RSS",
@@ -164,9 +164,9 @@
    ],
    "rel": [],
    "prio": 2,
-   "assignee": "worker",
+   "assignee": "leader",
    "status": "todo",
-   "note": ""
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "cognition": {
    "title": "aiosd-cognition tối thiểu + aiosctl: ask (grammar Reflex + vòng L2), status, audit verify, freeze",
@@ -178,9 +178,9 @@
    ],
    "rel": [],
    "prio": 1,
-   "assignee": "worker",
+   "assignee": "leader",
    "status": "todo",
-   "note": ""
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "image": {
    "title": "Containerfile ảnh AiOS: Fedora bootc ghim digest, đổi thương hiệu, unit systemd; build + bootc container lint",
@@ -190,9 +190,9 @@
    ],
    "rel": [],
    "prio": 2,
-   "assignee": "worker",
-   "status": "doing",
-   "note": ""
+   "assignee": "leader",
+   "status": "done",
+   "note": "killswitch freeze aios-agent.slice ở system manager, nhưng slice là user unit: sửa ở M1 (per-user)"
   },
   "s16": {
    "title": "Spike S-16: bảng giấy phép mọi phụ thuộc (cargo-deny, pip-licenses) so với Apache-2.0",
@@ -203,9 +203,9 @@
    ],
    "rel": [],
    "prio": 2,
-   "assignee": "worker",
+   "assignee": "leader",
    "status": "todo",
-   "note": ""
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "sandbox": {
    "title": "aios-sandbox-exec: bubblewrap + Landlock ABI V6 fail-closed + seccomp chặn UDP/raw; test trong VM",
@@ -218,9 +218,9 @@
     "s14"
    ],
    "prio": 1,
-   "assignee": "worker",
-   "status": "doing",
-   "note": ""
+   "assignee": "leader",
+   "status": "done",
+   "note": "seccomp là denylist: x32 ABI trên x86_64 chưa xét; Landlock chưa cấp /dev/null, /proc, /etc/pki"
   },
   "executor": {
    "title": "Broker executor: chạy tool process/mcp qua aios-sandbox-exec, cgroup tạm dưới aios-agent.slice",
@@ -231,9 +231,9 @@
    ],
    "rel": [],
    "prio": 1,
-   "assignee": "worker",
+   "assignee": "leader",
    "status": "todo",
-   "note": ""
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "s14": {
    "title": "Spike S-14 (phần Landlock): aios-sandbox-exec trên kernel 7.2 của VM, báo cáo ABI và hành vi",
@@ -243,9 +243,9 @@
    ],
    "rel": [],
    "prio": 2,
-   "assignee": "worker",
-   "status": "todo",
-   "note": ""
+   "assignee": "leader",
+   "status": "doing",
+   "note": "quota OpenCode hết; leader (Claude) làm"
   },
   "ld-gate": {
    "title": "Leader: tích hợp, chạy cổng M0 trong VM (aiosctl ask + 3 tool, tắt aiosd vẫn chạy), đo S-9 baseline",
