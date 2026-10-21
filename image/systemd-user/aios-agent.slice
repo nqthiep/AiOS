@@ -1,0 +1,12 @@
+[Unit]
+Description=AiOS agent slice (per-user agents: cognition, L2 worker, sandbox)
+Documentation=file:///usr/share/doc/aios/README.md
+Before=slices.target
+
+[Slice]
+CPUAccounting=yes
+MemoryAccounting=yes
+TasksAccounting=yes
+IOAccounting=yes
+CPUWeight=50
+MemoryHigh=50%

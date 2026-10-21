@@ -1,0 +1,138 @@
+# syntax=docker/dockerfile:1
+
+# AiOS system image (bootc) — task `image`, see docs/m0/image.md.
+#
+# Stages:
+#   builder : Fedora base + Rust toolchain + uv. Builds the Cargo workspace and
+#             the aiosd-cognition wheel. Never shipped in the runtime image.
+#   assets  : collects the optional runtime content (policy/, plugins/) that
+#             may not exist in the tree yet into /out.
+#   runtime : the final bootc image.
+
+# Base image pinned by digest. Per-architecture digests and the lookup date are
+# recorded in image/base.lock.
+ARG BASE_IMAGE=quay.io/fedora/fedora-bootc:44@sha256:e6fffeed9e9a13ca4d351c1ce4ae2b4a5119fe121268479e247a63a3ba2bfda2
+
+
+FROM ${BASE_IMAGE} AS builder
+
+# Toolchain layer: exists only in this stage.
+RUN dnf -y install \
+        cargo \
+        python3 \
+        rust \
+        uv \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf
+
+# /root is a dangling symlink in the Fedora base image (it points at
+# /var/roothome, created by tmpfiles at boot), so the toolchain gets its own
+# HOME and cache directories.
+ENV CARGO_HOME=/opt/cargo \
+    HOME=/opt/home \
+    UV_CACHE_DIR=/opt/uv-cache \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_NO_PROGRESS=1
+RUN install -d -m 0755 /opt/home
+
+WORKDIR /build
+COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
+COPY crates/ crates/
+COPY python/ python/
+
+# Workspace binaries: aiosd-core, aios-model-gateway, aios-sandbox-exec, ...
+RUN cargo build --release --workspace --locked
+
+# Python package: build the wheel once, install it in the runtime image.
+RUN cd python/aiosd-cognition \
+ && UV_PYTHON_DOWNLOADS=never uv build --wheel --out-dir /build/wheels
+
+
+FROM ${BASE_IMAGE} AS assets
+
+# Optional runtime content. policy/ and plugins/ are produced by other tasks
+# that may not have landed yet, so they are copied only when present.
+COPY . /tmp/src/
+RUN set -eux; \
+    install -d -m 0755 \
+        /out/usr/share/aios/plugins \
+        /out/usr/share/aios/trust \
+        /out/usr/share/aios/policy; \
+    if [ -d /tmp/src/policy ]; then \
+        find /tmp/src/policy -maxdepth 1 -type f -name '*.cedar' \
+            -exec cp -a {} /out/usr/share/aios/policy/ \;; \
+    fi; \
+    if [ -d /tmp/src/plugins/tools ]; then \
+        cp -a /tmp/src/plugins/tools/. /out/usr/share/aios/plugins/; \
+    fi
+
+
+FROM ${BASE_IMAGE} AS runtime
+
+# Runtime packages (docs/m0/image.md §Thiết kế). F44 ships pgvector for
+# PostgreSQL 18 as `pgvector`; there is no `postgresql18-pgvector` package.
+RUN dnf -y install \
+        bubblewrap \
+        firewalld \
+        flatpak \
+        llama-cpp \
+        pgvector \
+        postgresql-server \
+        python3 \
+        uv \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf
+
+# Branding: drop the Fedora release/logos packages for the generic ones, then
+# publish the AiOS os-release. No model, key or .env file ever enters here.
+RUN set -eux; \
+    if rpm -q fedora-logos >/dev/null 2>&1; then dnf -y remove fedora-logos; fi; \
+    dnf -y swap --allowerasing fedora-release generic-release; \
+    dnf -y install generic-logos; \
+    dnf clean all; \
+    rm -rf /var/cache/dnf
+COPY image/os-release /usr/lib/os-release
+
+# systemd units, tmpfiles and the trusted/policy/plugin directories.
+COPY image/systemd/ /usr/lib/systemd/system/
+COPY image/systemd-user/ /usr/lib/systemd/user/
+COPY image/tmpfiles.d/ /usr/lib/tmpfiles.d/
+COPY --from=assets /out/ /
+
+# Firewall: the default zone is `drop`, so nothing listens on the network
+# (design.md §16.1, layer 1). SSH stays off.
+RUN set -eux; \
+    sed -e 's/^DefaultZone=.*/DefaultZone=drop/' /etc/firewalld/firewalld.conf \
+        > /tmp/firewalld.conf; \
+    rm -f /etc/firewalld/firewalld.conf; \
+    install -m 0644 /tmp/firewalld.conf /etc/firewalld/firewalld.conf; \
+    rm -f /tmp/firewalld.conf; \
+    grep -q '^DefaultZone=drop$' /etc/firewalld/firewalld.conf; \
+    systemctl mask sshd.service
+
+# Binaries and the Python package built in the builder stage.
+COPY --from=builder /build/target/release/aiosd-core /usr/bin/aiosd-core
+COPY --from=builder /build/target/release/aios-model-gateway /usr/bin/aios-model-gateway
+COPY --from=builder /build/target/release/aios-sandbox-exec /usr/bin/aios-sandbox-exec
+COPY --from=builder /build/wheels/ /tmp/wheels/
+RUN set -eux; \
+    UV_CACHE_DIR=/tmp/uv-cache uv pip install --system --no-deps --no-cache \
+        --python /usr/bin/python3 \
+        /tmp/wheels/aiosd_cognition-*.whl; \
+    rm -rf /tmp/wheels
+
+# Services enabled at boot: the two AiOS daemons and the firewall.
+RUN systemctl enable aiosd-core.service aios-model-gateway.service firewalld.service
+
+# Keep the image reproducible: no build-time state, no logs, no caches.
+# /run/systemd is left alone: the container runtime bind-mounts its resolver
+# stub there, so the directory cannot be removed while the build runs.
+RUN set -eux; \
+    find /var/log -type f -delete; \
+    rm -rf /var/cache/dnf; \
+    rm -rf /var/lib/dnf/repos; \
+    rm -rf /var/cache/swcatalog/cache/*.xb; \
+    rm -rf /var/cache/ldconfig/aux-cache; \
+    find /run -mindepth 1 -maxdepth 1 ! -name systemd -exec rm -rf {} +; \
+    rmdir /run/systemd/resolve /run/systemd 2>/dev/null || true; \
+    rm -rf /tmp/*

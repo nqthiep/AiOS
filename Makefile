@@ -21,3 +21,8 @@ fmt:
 
 vm-test:
 	dev/vm-run.sh 'cargo test --workspace'
+
+.PHONY: image
+
+image:
+	docker build --platform linux/arm64 -f image/Containerfile -t aios:m0 .

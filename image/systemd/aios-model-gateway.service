@@ -1,0 +1,18 @@
+[Unit]
+Description=AiOS model gateway (OpenAI-compatible local API)
+Documentation=file:///usr/share/doc/aios/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/aios-model-gateway
+Restart=on-failure
+RestartSec=2s
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target

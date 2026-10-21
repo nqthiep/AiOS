@@ -1,0 +1,22 @@
+[Unit]
+Description=AiOS kill switch (freeze every agent workload)
+Documentation=file:///usr/share/doc/aios/README.md
+# The kill switch is triggered by the trusted UI (compositor) or by
+# `aiosctl freeze` through systemd. It must not depend on aiosd-core: it has
+# to keep working when aiosd-core hangs or is compromised (design.md §11.3).
+After=multi-user.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# Freeze the agent workloads first (engines, sandbox, plugins, memory
+# workers). The `-` prefix keeps the unit green when a slice is not running:
+# the kill switch must never fail half-way.
+ExecStart=-/usr/bin/systemctl freeze aios-agent.slice
+ExecStart=-/usr/bin/systemctl freeze aios-svc.slice
+# Stop the agent services that are not placed in a slice yet.
+ExecStart=-/usr/bin/systemctl stop aiosd-cognition.service
+ExecStart=-/usr/bin/systemctl stop aiosd-l2.service
+
+[Install]
+WantedBy=multi-user.target

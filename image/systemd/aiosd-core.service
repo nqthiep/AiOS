@@ -1,0 +1,23 @@
+[Unit]
+Description=AiOS core daemon (Tool Broker, Policy Engine, admin socket)
+Documentation=file:///usr/share/doc/aios/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/aiosd-core
+Restart=on-failure
+RestartSec=2s
+# /run/aios holds the admin socket (/run/aios/core.sock) and the gateway
+# admin socket (/run/aios/gateway-admin.sock).
+RuntimeDirectory=aios
+RuntimeDirectoryMode=0755
+RuntimeDirectoryPreserve=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target

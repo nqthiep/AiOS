@@ -1,0 +1,21 @@
+# Build context trimming for image/Containerfile.
+# Docker picks this file up automatically because it sits next to the
+# Containerfile; it keeps the context small and free of build artifacts.
+
+.git/
+.omo/
+.venv/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+target/
+**/target/
+
+# Never ship secrets or model weights (docs/m0/image.md).
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.gguf
+**/*.safetensors
+models/
