@@ -1,0 +1,12 @@
+NAME="AiOS"
+VERSION="0.0.1 (m0)"
+RELEASE_TYPE=stable
+ID=aios
+ID_LIKE=fedora
+VERSION_ID=0.0.1-m0
+PRETTY_NAME="AiOS 0.0.1 (m0)"
+ANSI_COLOR="0;38;2;60;110;180"
+DEFAULT_HOSTNAME="aios"
+HOME_URL="https://github.com/nqthiep/AiOS"
+SUPPORT_URL="https://github.com/nqthiep/AiOS/issues"
+BUG_REPORT_URL="https://github.com/nqthiep/AiOS/issues"
