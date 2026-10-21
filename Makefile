@@ -37,7 +37,9 @@ image:
 # typing_extensions (PSF-2.0).
 PY_LICENSE_ALLOW := MIT;MIT License;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;Unicode-3.0;Zlib;MPL-2.0;Apache-2.0 OR BSD-2-Clause;Apache-2.0 OR BSD-3-Clause
 PY_LICENSE_EXCEPT := cffi typing_extensions
-PY_PROJECTS := $(patsubst %/pyproject.toml,%,$(shell git ls-files '*pyproject.toml'))
+# dev/ holds VM-only spikes that are not shipped (dev/vm/hindsight pulls
+# LGPL psycopg2-binary); their licenses are reviewed in the spike reports.
+PY_PROJECTS := $(patsubst %/pyproject.toml,%,$(shell git ls-files '*pyproject.toml' ':!:dev/**'))
 
 .PHONY: licenses
 

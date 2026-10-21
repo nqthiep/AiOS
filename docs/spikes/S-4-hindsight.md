@@ -284,3 +284,7 @@ S-4 xác nhận các tiền đề kỹ thuật:
 4. Quyết định về `psycopg2-binary` (LGPL) và binary trong `claude-agent-sdk` (§7.6); cân nhắc
    đóng gói venv gọn hơn (bỏ SDK provider không dùng) nếu 1,2 GB là quá lớn cho ảnh hệ thống.
 5. Đo lại tốc độ `retain` và ngôn ngữ của fact trên phần cứng mục tiêu với mô hình S-13 chính thức.
+
+## Phụ lục — Giấy phép (leader, 2026-10-21)
+
+`make licenses` không kiểm `dev/**` (spike chỉ chạy trong VM, không đóng gói). Chạy `pip-licenses` trên venv của spike này cho thấy: `psycopg2-binary` là LGPL; nhiều gói chỉ khai classifier (`BSD License`, `Apache Software License`, `Python Software Foundation License`…) nên `--allow-only` khớp nguyên chuỗi không nhận; `pillow` là `MIT-CMU`, `regex` có `CNRI-Python`, `numpy` có `CC0-1.0`. Trước khi `aiosd-memory` (M1) đưa Hindsight vào ảnh cần một vòng duyệt giấy phép riêng, gồm cả binary `_bundled/claude` trong `claude-agent-sdk` \[Unverified\].
