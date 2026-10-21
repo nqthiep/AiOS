@@ -132,6 +132,8 @@ impl Executor for SandboxExecutor {
                     .iter()
                     .filter_map(|k| Some((k, std::env::var_os(k)?))),
             )
+            // Tools find their workspace here (docs/m0/tools3.md, plugins/tools/fs).
+            .env("AIOS_WORKSPACE", &workspace)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())

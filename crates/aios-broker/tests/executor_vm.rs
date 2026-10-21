@@ -41,7 +41,9 @@ def call(name, args):
         return text(args["text"])
     if name == "write":
         try:
-            with open(args["path"], "w") as f:
+            # Relative paths resolve against $AIOS_WORKSPACE, as the fs tools do.
+            path = os.path.join(os.environ.get("AIOS_WORKSPACE", "/nonexistent"), args["path"])
+            with open(path, "w") as f:
                 f.write(args.get("content", ""))
             return text("written")
         except OSError as e:
@@ -271,7 +273,7 @@ async fn write_inside_workspace() {
     let out = fx
         .run(
             &spec("write"),
-            json!({"path": target, "content": "hello"}),
+            json!({"path": "note.txt", "content": "hello"}),
             Duration::from_secs(20),
         )
         .await

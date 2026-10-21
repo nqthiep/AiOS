@@ -20,7 +20,10 @@ DEFAULT_CORE_SOCKET = "/run/aios/core.sock"
 DEFAULT_GATEWAY_URL = "http://127.0.0.1:8090/v1"
 DEFAULT_AUDIT_FILE = "/var/lib/aios/audit/audit.jsonl"
 DEFAULT_CONFIRM_CMD = "sudo -u aios-trusted aios-dev-confirm --key /etc/aios/dev-trusted-ui.key"
-DEFAULT_AGENT_CGROUP = "/sys/fs/cgroup/user.slice/user-{uid}.slice/user@{uid}.service/aios-agent.slice"
+# systemd nests `aios-agent.slice` under `aios.slice` (the dash is a hierarchy separator).
+DEFAULT_AGENT_CGROUP = (
+    "/sys/fs/cgroup/user.slice/user-{uid}.slice/user@{uid}.service/aios.slice/aios-agent.slice"
+)
 
 
 @dataclass(frozen=True)
