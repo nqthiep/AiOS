@@ -1,0 +1,35 @@
+# cargo-deny configuration (spike S-16, docs/m0/s16.md, D-48).
+# Run: `cargo deny check licenses` (also part of `make licenses`).
+# Report: docs/spikes/S-16-licenses.md
+
+[graph]
+# No `targets` filter: every platform is checked, so Linux-only crates
+# (aios-sandbox-exec, landlock, ...) are covered even when run on macOS.
+all-features = true
+
+[licenses]
+# Licenses compatible with Apache-2.0 (docs/m0/README.md §5). Do not extend
+# this list to make a crate pass; add a per-crate exception below instead.
+allow = [
+    "Apache-2.0",
+    "MIT",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Zlib",
+    "MPL-2.0",
+]
+# MPL-2.0 is allowed by policy even if no current crate uses it.
+unused-allowed-license = "allow"
+
+exceptions = [
+    # Apache-2.0 plus the LLVM exception, which only adds permissions to
+    # Apache-2.0. Build-time dependency of psm (stacker -> cedar-policy-core);
+    # used by psm's build script, not by AiOS code at run time.
+    { crate = "ar_archive_writer", allow = ["Apache-2.0 WITH LLVM-exception"] },
+    # MIT No Attribution: MIT without the notice requirement, so it grants at
+    # least what MIT grants. Pulled in by fluent-uri -> referencing ->
+    # jsonschema (aios-registry, aios-broker).
+    { crate = "borrow-or-share", allow = ["MIT-0"] },
+]
