@@ -44,8 +44,11 @@ COPY python/ python/
 RUN cargo build --release --workspace --locked
 
 # Python package: build the wheel once, install it in the runtime image.
+# Its dependencies are pinned with hashes from uv.lock.
 RUN cd python/aiosd-cognition \
- && UV_PYTHON_DOWNLOADS=never uv build --wheel --out-dir /build/wheels
+ && UV_PYTHON_DOWNLOADS=never uv build --wheel --out-dir /build/wheels \
+ && uv export --frozen --no-dev --no-emit-project --format requirements.txt \
+        -o /build/wheels/requirements.txt
 
 
 FROM ${BASE_IMAGE} AS assets
@@ -116,6 +119,8 @@ COPY --from=builder /build/target/release/aios-model-gateway /usr/bin/aios-model
 COPY --from=builder /build/target/release/aios-sandbox-exec /usr/bin/aios-sandbox-exec
 COPY --from=builder /build/wheels/ /tmp/wheels/
 RUN set -eux; \
+    UV_CACHE_DIR=/tmp/uv-cache uv pip install --system --no-cache --require-hashes \
+        --python /usr/bin/python3 -r /tmp/wheels/requirements.txt; \
     UV_CACHE_DIR=/tmp/uv-cache uv pip install --system --no-deps --no-cache \
         --python /usr/bin/python3 \
         /tmp/wheels/aiosd_cognition-*.whl; \
