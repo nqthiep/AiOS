@@ -31,7 +31,7 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use tokio::sync::{OnceCell, oneshot};
 
-pub use executor::{ExecCtx, ExecError, Executor, FakeExecutor};
+pub use executor::{ExecCtx, ExecError, Executor, FakeExecutor, SandboxConfig, SandboxExecutor};
 pub use gateway::GatewayError;
 
 /// How long a confirmation request waits for a token (docs/m0/broker.md).

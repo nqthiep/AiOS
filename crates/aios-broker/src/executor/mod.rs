@@ -1,8 +1,11 @@
 //! How the broker runs a tool (docs/m0/broker.md §Executor).
 //!
-//! The real sandboxed executor is task `executor` (docs/m0/executor.md) and
-//! lives next to this file; [`FakeExecutor`] returns preconfigured outputs
-//! for tests.
+//! [`SandboxExecutor`] runs tools for real (docs/m0/executor.md);
+//! [`FakeExecutor`] returns preconfigured outputs for tests.
+
+mod sandbox;
+
+pub use sandbox::{SandboxConfig, SandboxExecutor};
 
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -39,10 +42,22 @@ pub struct ExecCtx {
 pub enum ExecError {
     #[error("tool timed out")]
     Timeout,
-    #[error("sandbox failed with exit code {0}")]
+    #[error("sandbox failed with exit code {0}: {reason}", reason = sandbox_reason(*.0))]
     Sandbox(i32),
     #[error("tool failed: {0}")]
     Failed(String),
+}
+
+/// Meaning of the `aios-sandbox-exec` exit codes (docs/m0/sandbox.md).
+fn sandbox_reason(code: i32) -> &'static str {
+    match code {
+        64 => "bad sandbox profile or command line",
+        65 => "bubblewrap is not installed",
+        70 => "Landlock could not be fully enforced",
+        71 => "the seccomp filter could not be installed",
+        72 => "the tool command cannot be executed",
+        _ => "sandbox error",
+    }
 }
 
 /// Test executor: returns the output configured for a tool and records
