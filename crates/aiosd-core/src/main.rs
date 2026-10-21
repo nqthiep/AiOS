@@ -11,8 +11,8 @@ use std::time::Duration;
 
 use aios_audit::AuditLog;
 use aios_broker::{
-    Broker, BrokerConfig, BrokerDeps, CONFIRM_TIMEOUT, Executor, FakeExecutor, IDEMPOTENCY_TTL,
-    SESSION_TTL, admin, mcp,
+    Broker, BrokerConfig, BrokerDeps, CONFIRM_TIMEOUT, Executor, IDEMPOTENCY_TTL, SESSION_TTL,
+    SandboxConfig, SandboxExecutor, admin, mcp,
 };
 use aios_confirm::Verifier;
 use aios_policy::PolicyEngine;
@@ -65,9 +65,9 @@ async fn run(cfg: CoreConfig, shutdown: impl Future<Output = ()>) -> anyhow::Res
         .with_context(|| format!("opening audit log {}", cfg.audit_file.display()))?;
     let autonomy = config::load_autonomy(&cfg.autonomy_file)?;
 
-    // M0: replaced by the sandboxed executor of task `executor`. With no
-    // configured outputs every call fails closed.
-    let executor: Arc<dyn Executor> = Arc::new(FakeExecutor::new());
+    let executor: Arc<dyn Executor> = Arc::new(SandboxExecutor::new(SandboxConfig::from_env(
+        registry.plugins().map(|p| (p.id.clone(), p.path.clone())),
+    )));
 
     let mcp_listener = TcpListener::bind(cfg.mcp_listen)
         .await
