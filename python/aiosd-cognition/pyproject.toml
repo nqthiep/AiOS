@@ -4,7 +4,11 @@ version = "0.0.1"
 description = "AiOS cognition: router, L2 loop, aiosctl (M0). Spec: docs/m0/cognition.md"
 license = "Apache-2.0"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "httpx2>=2.15",
+    "mcp>=2.3,<3",
+    "pyyaml>=6.0.3",
+]
 
 [project.scripts]
 aiosctl = "aiosd_cognition.cli:main"

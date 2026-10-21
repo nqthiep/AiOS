@@ -1,0 +1,15 @@
+# L0 Reflex grammar, Vietnamese (docs/m0/cognition.md, design.md §17).
+# Input is NFC-normalized, lower-cased and stripped before matching.
+# `args` values are str.format templates over the named groups of `pattern`.
+version: 1
+rules:
+  - id: sys.status
+    pattern: '^(trạng thái|tình trạng) (máy|hệ thống)$'
+    tool: sys.info
+    args: {}
+  - id: fs.find
+    pattern: '^tìm (file|tệp) (?P<q>.+)$'
+    tool: fs.search
+    # fs.search takes a glob `pattern` (plugins/tools/fs/plugin.toml); match q anywhere in the name.
+    args:
+      pattern: '*{q}*'
