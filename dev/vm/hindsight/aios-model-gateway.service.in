@@ -1,0 +1,28 @@
+# User unit for aios-model-gateway in the dev VM (spike S-4).
+# Do not install directly: dev/vm/hindsight/install.sh renders it to
+# ~/.config/systemd/user/aios-model-gateway.service.
+#
+# Virtual keys live in memory only: restarting this unit revokes the
+# `hindsight` service key; re-run install.sh to issue a new one.
+[Unit]
+Description=AiOS Model Gateway (dev VM, spike S-4)
+After=aios-llm-chat.service aios-llm-embed.service
+Wants=aios-llm-chat.service aios-llm-embed.service
+
+[Service]
+Type=simple
+ExecStart=@BIN@ --config @CONFIG@ --users-dir @USERS_DIR@ --admin-socket @ADMIN_SOCKET@ --admin-uid @ADMIN_UID@
+Restart=on-failure
+RestartSec=3s
+# See docs/spikes/S-13-m0.md: the IP firewall is not enforced for user units.
+IPAddressDeny=any
+IPAddressAllow=localhost
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+ReadWritePaths=@USERS_DIR@ @ADMIN_SOCKET_DIR@
+MemoryMax=256M
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,19 @@
+# Python environment for the Hindsight spike (docs/m0/hindsight.md).
+# Installed by install.sh into /opt/aios/hindsight with `uv sync --frozen`.
+# No `local-ml` / `local-onnx` extra: no torch, no sentence-transformers.
+[project]
+name = "aios-hindsight-env"
+version = "0.0.0"
+requires-python = "==3.14.*"
+dependencies = [
+    "hindsight-api-slim==1.0.0",
+    "hindsight-client==1.0.0",
+    # Only so that `bin/pip list` works in the acceptance check.
+    "pip",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 110

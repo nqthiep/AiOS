@@ -1,0 +1,51 @@
+# Hindsight API, one instance per user: hindsight-api@<uid>.service
+# (docs/m0/hindsight.md, integration.md §5.1 and §6.2).
+# System unit, so that IPAddressDeny= is enforced (user units ignore it,
+# docs/spikes/S-13-m0.md). Installed by dev/vm/hindsight/install.sh.
+[Unit]
+Description=AiOS Hindsight memory API for uid %i
+After=network-online.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=%i
+Slice=aios-svc.slice
+# Gateway service key and API key, written by install.sh (owner %i, mode 0600).
+EnvironmentFile=/etc/aios/hindsight/%i.env
+StateDirectory=aios/hindsight/%i
+StateDirectoryMode=0700
+Environment=HOME=/var/lib/aios/hindsight/%i
+WorkingDirectory=/var/lib/aios/hindsight/%i
+ExecStart=/opt/aios/hindsight/bin/hindsight-api
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=180s
+
+# Sandboxing (integration.md §5.1, Hindsight row). Network: only loopback
+# (Model Gateway on 127.0.0.1:8090) and the Postgres Unix socket.
+IPAddressDeny=any
+IPAddressAllow=localhost
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+MemoryMax=2G
+TasksMax=256
+
+[Install]
+WantedBy=multi-user.target
