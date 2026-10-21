@@ -179,8 +179,8 @@
    "rel": [],
    "prio": 1,
    "assignee": "leader",
-   "status": "doing",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "freeze chưa revoke-all (aiosd-core không có endpoint; thuộc killswitch); file pending 0644 trong thư mục 0711 lúc ký"
   },
   "image": {
    "title": "Containerfile ảnh AiOS: Fedora bootc ghim digest, đổi thương hiệu, unit systemd; build + bootc container lint",
@@ -274,6 +274,16 @@
    "assignee": "leader",
    "status": "done",
    "note": "L-3 (fd kế thừa) giao cho executor: đóng fd trước khi gọi helper"
+  },
+  "audit-fix": {
+   "title": "Sửa split_last_lines của aios-audit (log 2–3 dòng không mở lại được)",
+   "parent": "core",
+   "deps": [],
+   "rel": [],
+   "prio": 0,
+   "assignee": "leader",
+   "status": "done",
+   "note": "phát hiện bởi cognition; test reopening_after_any_line_count"
   }
  }
 }

@@ -156,6 +156,26 @@ fn reopening_continues_the_chain() {
     assert_eq!(report.lines, 4);
 }
 
+/// Reopening works whatever the number of lines already in the log.
+#[test]
+fn reopening_after_any_line_count() {
+    for count in 1..=5u64 {
+        let directory = TempDir::new(&format!("reopen-{count}"));
+        let path = directory.file("audit.jsonl");
+        for seq in 0..count {
+            let log = AuditLog::open(&path).expect("reopen the audit log");
+            assert_eq!(
+                log.append(1000, AuditKind::ToolCall, json!({ "i": seq }))
+                    .expect("append"),
+                seq
+            );
+        }
+        let report = verify(&path).expect("verify the audit log");
+        assert!(report.is_ok(), "{count} lines: {:?}", report.broken);
+        assert_eq!(report.lines, count);
+    }
+}
+
 /// Eight tasks writing at the same time never interleave their lines.
 #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
 async fn concurrent_appends_do_not_interleave() {

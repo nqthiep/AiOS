@@ -504,9 +504,9 @@ fn split_last_lines(buffer: &[u8], at_file_start: bool) -> (Option<&[u8]>, Optio
     };
     let last = &buffer[last_start..last_end];
 
-    let previous = if ends.len() >= 3 {
+    let previous = if ends.len() >= 2 {
         let previous_end = ends[ends.len() - 2];
-        let previous_start = if ends.len() >= 4 {
+        let previous_start = if ends.len() >= 3 {
             ends[ends.len() - 3] + 1
         } else {
             0
