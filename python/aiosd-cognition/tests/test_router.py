@@ -4,7 +4,7 @@ import unicodedata
 from fakes import DownGateway, FakeBroker, FakeCore, FakeGateway, NoGateway, denied, reply, tool_call
 
 from aiosd_cognition.clients import ToolResult
-from aiosd_cognition.router import Router, load_grammar, match_l0
+from aiosd_cognition.router import Router, load_grammar, match_l0, model_schema
 
 
 def run(router: Router, text: str):
@@ -113,3 +113,21 @@ def test_token_budget() -> None:
 def test_l2_reports_gateway_down() -> None:
     out = run(Router("s", FakeBroker(), DownGateway()), "kể chuyện")
     assert out.route == "L2" and out.error == "gateway: unavailable: ConnectError: connection refused"
+
+
+def test_model_schema_drops_patterns_only() -> None:
+    schema = {
+        "type": "object",
+        "properties": {"name": {"type": "string", "pattern": "^[\\p{L}]+$", "maxLength": 80}},
+        "required": ["name"],
+    }
+    assert model_schema(schema) == {
+        "type": "object",
+        "properties": {"name": {"type": "string", "maxLength": 80}},
+        "required": ["name"],
+    }
+
+
+def test_model_schema_keeps_a_property_named_pattern() -> None:
+    schema = {"type": "object", "properties": {"pattern": {"type": "string", "minLength": 1}}}
+    assert model_schema(schema) == schema

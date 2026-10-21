@@ -165,8 +165,8 @@
    "rel": [],
    "prio": 2,
    "assignee": "leader",
-   "status": "doing",
-   "note": "quota OpenCode hết; leader (Claude) làm"
+   "status": "done",
+   "note": "probe đạt (sub-agent, ~20 phút; leader chỉ kiểm lại service, no-torch, MemoryCurrent); psycopg2-binary LGPL; khóa Gateway mất khi restart; gateway.yaml dev ghi đè /etc/aios"
   },
   "cognition": {
    "title": "aiosd-cognition tối thiểu + aiosctl: ask (grammar Reflex + vòng L2), status, audit verify, freeze",
@@ -260,7 +260,7 @@
    "rel": [],
    "prio": 0,
    "assignee": "leader",
-   "status": "todo",
+   "status": "doing",
    "note": ""
   },
   "sandbox-fix": {

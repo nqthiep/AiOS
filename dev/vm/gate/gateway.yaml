@@ -1,0 +1,34 @@
+# Model Gateway config for the M0 gate in the dev VM (docs/m0/ld-gate.md).
+# Superset of dev/vm/hindsight/gateway.yaml: adds the L2 route `s2` and the
+# `aiosd-l2` client. Local routes only; no cloud key is configured.
+listen: "127.0.0.1:8090"
+
+# A 4B model on 4 vCPU needs more than the 120 s default.
+request_timeout_s: 300
+
+models:
+  s1-local:
+    kind: local
+    endpoint: "http://127.0.0.1:8081/v1"
+    model: "Qwen3-4B-Instruct-2507"
+  embed-local:
+    kind: local
+    endpoint: "http://127.0.0.1:8082/v1"
+    model: "multilingual-e5-large-instruct"
+
+routes:
+  - model: s1
+    use: [s1-local]
+  # M0 has no cloud model: L2 runs on the local S1 model.
+  - model: s2
+    use: [s1-local]
+
+embeddings_model: embed-local
+
+clients:
+  aiosd-l2:
+    cloud: false
+    key_scope: session
+  hindsight:
+    cloud: false
+    key_scope: service

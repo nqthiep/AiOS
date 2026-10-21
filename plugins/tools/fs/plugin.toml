@@ -19,7 +19,7 @@ landlock_required = true
 
 [[tools]]
 name = "fs.search"
-description = "Search files inside the workspace by name (glob, case- and diacritic-insensitive)."
+description = "Search files inside the workspace by name. Glob, case- and diacritic-insensitive; put * between and around words so spaces, dashes and underscores all match: *kế*hoạch* finds ke-hoach-q4.md."
 risk = "low"
 reversible = true
 result_privacy = "personal"
